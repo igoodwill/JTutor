@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title>Answers</title>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container">
+		<h4>
+			<a th:text="Home" href="home" th:href="@{/home}"></a> -> <a th:text="Quests" href="quest/add" th:href="@{/quest/add}"></a> -> <a th:text="${quest.name}"
+				th:href="@{/quest/{id}/questions(id=${quest.id})}"></a> -> <span th:text="${question.value}"></span>
+		</h4>
+
+		<h2>Answer Form</h2>
+		<form class="form-horizontal" th:object="${answerForm}" th:action="@{/quest/{id}/question/{questionId}/answers(id=${quest.id}, questionId=${question.id})}"
+			method="post">
+			<input type="hidden" th:field="*{id}" />
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Value:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:field="*{value}" required="required" autofocus="autofocus" />
+					<p class="label label-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value Error</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Valid:</label>
+				<div class="col-sm-10">
+					<input type="checkbox" class="form-control" th:field="*{valid}" />
+					<p class="label label-danger" th:if="${#fields.hasErrors('valid')}" th:errors="*{valid}">Valid Error</p>
+				</div>
+			</div>
+			<div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+
+		<div class="container" th:unless="${#lists.isEmpty(answers)}">
+			<h2>Answers</h2>
+			<table class="table table-striped table-condensed">
+				<thead>
+					<tr>
+						<th>Value</th>
+						<th>Valid</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="answer, answerStat : *{answers}">
+						<td><a th:text="${answer.value}"
+							th:href="@{/quest/{id}/question/{questionId}/answer/{answerId}/edit(id=${quest.id}, questionId=${question.id}, answerId=${answer.id})}"></a></td>
+						<td th:text="${answer.valid}"></td>
+						<td><a th:href="@{/quest/{id}/question/{questionId}/answer/{answerId}/delete(id=${quest.id}, questionId=${question.id}, answerId=${answer.id})}"
+							onclick="return confirm('Are you sure you want to delete\nanswer?');">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<!--/*/ <th:block th:include="fragments/footer :: footer">&copy; 2016 The Static Templates</th:block> /*/-->
+		</div>
+	</footer>
+</body>
+</html>

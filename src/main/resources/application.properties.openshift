@@ -1,0 +1,39 @@
+app.secret=CHANGE_ME
+app.email.from=admin@localhost.net
+app.email.support=admin@localhost.net
+app.url=http://http://jtutor-sgoodwill.rhcloud.com/JTutorSB
+app.user.root=users/
+#Set this following to true if you want to verify email address on new user registrations
+app.user.verification=false
+#DEV/PROD
+app.environment=DEV
+
+spring.thymeleaf.mode=HTML5
+# LOGGING
+#logging.path=/var/logs
+logging.file=myapp.log
+logging.level.org.springframework.jdbc=DEBUG
+#logging.level.=DEBUG
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/jtutor_new
+spring.datasource.username=${OPENSHIFT_MYSQL_DB_USERNAME}
+spring.datasource.password=${OPENSHIFT_MYSQL_DB_PASSWORD}
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.hibernate.naming.strategy=org.hibernate.cfg.ImprovedNamingStrategy
+spring.thymeleaf.cache=false
+security.basic.enabled=false
+
+# Email (MailProperties)
+spring.mail.host=smtp.gmail.com
+spring.mail.username=vita.dobrovolskaya@gmail.com
+spring.mail.password=gfhfljrc76
+spring.mail.properties.mail.smtp.auth = true
+spring.mail.properties.mail.smtp.ssl.enable = true
+spring.mail.properties.mail.smtp.socketFactory.port = 465
+spring.mail.properties.mail.smtp.socketFactory.class = javax.net.ssl.SSLSocketFactory
+spring.mail.properties.mail.smtp.socketFactory.fallback = false
+spring.mail.default-encoding=UTF-8
+
+multipart.maxFileSize = 20Mb
+multipart.maxRequestSize = 20Mb
