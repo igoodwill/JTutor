@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/user/reset-password-change").permitAll()
         .antMatchers("/user/autologin").access("hasRole('ROLE_ADMIN')")
         .antMatchers("/user/delete").access("hasRole('ROLE_ADMIN')")
+        .antMatchers("/quest/**").access("hasRole('ROLE_ADMIN')")
 		.anyRequest().authenticated()
 		.and()
 			.formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
