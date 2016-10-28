@@ -15,9 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -43,24 +43,24 @@ public class UsersController {
 	@Autowired
 	private MailService mailService;
 
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String login(Users users) {
 		return "user/login";
 	}
 
-	@RequestMapping("/user/list")
+	@GetMapping("/user/list")
 	public String list(ModelMap map) {
 		Iterable<Users> users = this.usersRepository.findAll();
 		map.addAttribute("users", users);
 		return "user/list";
 	}
 
-	@RequestMapping(value = "/user/register", method = RequestMethod.GET)
+	@GetMapping("/user/register")
 	public String register(Users users) {
 		return "user/register";
 	}
 
-	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
+	@PostMapping("/user/register")
 	public String registerPost(@Valid Users users, BindingResult result) {
 		if (result.hasErrors()) {
 			return "user/register";
@@ -81,12 +81,12 @@ public class UsersController {
 		}
 	}
 
-	@RequestMapping(value = "/user/reset-password")
+	@GetMapping("/user/reset-password")
 	public String resetPasswordEmail(Users users) {
 		return "user/reset-password";
 	}
 
-	@RequestMapping(value = "/user/reset-password", method = RequestMethod.POST)
+	@PostMapping("/user/reset-password")
 	public String resetPasswordEmailPost(Users users, BindingResult result) {
 		Users u = usersRepository.findOneByEmail(users.getEmail());
 		if (u == null) {
@@ -99,7 +99,7 @@ public class UsersController {
 		return "user/reset-password-sent";
 	}
 
-	@RequestMapping(value = "/user/reset-password-change")
+	@GetMapping("/user/reset-password-change")
 	public String resetPasswordChange(Users users, BindingResult result, Model model) {
 		Users u = usersRepository.findOneByToken(users.getToken());
 		if (users.getToken().equals("1") || u == null) {
@@ -110,7 +110,7 @@ public class UsersController {
 		return "user/reset-password-change";
 	}
 
-	@RequestMapping(value = "/user/reset-password-change", method = RequestMethod.POST)
+	@PostMapping("/user/reset-password-change")
 	public ModelAndView resetPasswordChangePost(Users users, BindingResult result) {
 		Boolean isChanged = usersService.resetPassword(users);
 		if (isChanged) {
@@ -121,12 +121,12 @@ public class UsersController {
 		}
 	}
 
-	@RequestMapping("/user/activation-send")
+	@GetMapping("/user/activation-send")
 	public ModelAndView activationSend(Users users) {
 		return new ModelAndView("/user/activation-send");
 	}
 
-	@RequestMapping(value = "/user/activation-send", method = RequestMethod.POST)
+	@PostMapping("/user/activation-send")
 	public ModelAndView activationSendPost(Users users, BindingResult result) {
 		Users u = usersService.resetActivation(users.getEmail());
 		if (u != null) {
@@ -138,13 +138,13 @@ public class UsersController {
 		}
 	}
 
-	@RequestMapping("/user/delete")
+	@GetMapping("/user/delete")
 	public String delete(Integer id) {
 		usersService.delete(id);
 		return "redirect:/user/list";
 	}
 
-	@RequestMapping("/user/activate")
+	@GetMapping("/user/activate")
 	public String activate(String activation) {
 		Users u = usersService.activate(activation);
 		if (u != null) {
@@ -154,13 +154,13 @@ public class UsersController {
 		return "redirect:/error?message=Could not activate with this activation code, please contact support";
 	}
 
-	@RequestMapping("/user/autologin")
+	@GetMapping("/user/autologin")
 	public String autoLogin(Users users) {
 		usersService.autoLogin(users.getUsername());
 		return "redirect:/";
 	}
 
-	@RequestMapping("/user/edit/{id}")
+	@GetMapping("/user/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, Users users) {
 		Users u;
 		Users loggedInUser = usersService.getLoggedInUser();
@@ -183,7 +183,7 @@ public class UsersController {
 		return "/user/edit";
 	}
 
-	@RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+	@PostMapping("/user/edit")
 	public String editPost(@Valid Users users, BindingResult result) {
 		if (result.hasFieldErrors("email")) {
 			return "/user/edit";
