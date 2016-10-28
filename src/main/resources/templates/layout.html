@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-<title>Layout</title>
+<title>JTutor</title>
 <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
@@ -63,7 +63,7 @@
 		<p class="pull-right" th:if="${g_user}">
 			Logged in as: <span th:text="${g_user.email}">my email</span>
 		</p>
-		<div th:fragment="footer">&copy; 2016 Igor Goodwill</div>
+		<div>&copy; 2016 Igor Goodwill</div>
 	</footer>
 </body>
 </html>
