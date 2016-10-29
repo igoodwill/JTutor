@@ -14,7 +14,12 @@
 				<a class="navbar-brand" href="#">JTutor</a>
 			</div>
 			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar">
+					<li><a th:href="@{/}" href="/">Home</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/user/list}" href="user/list">User List</a></li>
+					<li><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>
 					<li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>
 					<li><a th:href="@{/user/register}" href="register">Register</a></li>
 					<li><a th:href="@{/login}" href="login">Login</a></li>
@@ -28,16 +33,6 @@
 
 		<div class="row row-offcanvas row-offcanvas-left">
 
-			<div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
-
-				<ul class="nav nav-sidebar">
-					<li th:class="${#httpServletRequest.requestURI=='/'}? active"><a th:href="@{/}" href="/">Home</a></li>
-					<li th:class="${#httpServletRequest.requestURI=='/user/list'}? active"><a th:href="@{/user/list}" href="user/list">User List</a></li>
-					<li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/user/edit')}  ? active"><a th:href="@{/user/edit/0}" href="user/list">Edit
-							user</a></li>
-				</ul>
-
-			</div>
 			<!--/span-->
 
 			<div class="col-sm-9 col-md-10 main">
@@ -60,10 +55,14 @@
 	<!--/.container-->
 
 	<footer>
-		<p class="pull-right" th:if="${g_user}">
-			Logged in as: <span th:text="${g_user.email}">my email</span>
-		</p>
-		<div>&copy; 2016 Igor Goodwill</div>
+
+		<div class="footer">
+			<p class="pull-right" th:if="${g_user}">
+				Logged in as: <span th:text="${g_user.email}">my email</span>
+			</p>
+			&copy; 2016 Igor Goodwill
+
+		</div>
 	</footer>
 </body>
 </html>

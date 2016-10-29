@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.igoodwill.jtutor</groupId>
-	<artifactId>JTutorSB</artifactId>
+	<artifactId>JTutor</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 
