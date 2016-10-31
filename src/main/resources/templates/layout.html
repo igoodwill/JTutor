@@ -18,12 +18,15 @@
 					<li><a th:href="@{/}" href="/">Home</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a th:href="@{/user/list}" href="user/list">User List</a></li>
-					<li><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>
-					<li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>
-					<li><a th:href="@{/user/register}" href="register">Register</a></li>
-					<li><a th:href="@{/login}" href="login">Login</a></li>
-					<li><a th:href="@{/logout}" href="logout"><i class="icon-chevron-left"></i>Logout</a></li>
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a th:href="@{/user/list}" href="user/list">User List</a></li>
+							<li><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>
+							<li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>
+							<li><a th:href="@{/user/register}" href="register">Register</a></li>
+						</ul></li>
+					<li><a th:href="@{/login}" href="login"><span class="glyphicon glyphicon-log-in"></span></a></li>
+					<li><a th:href="@{/logout}" href="logout"><i class="icon-chevron-left"></i><span class="glyphicon glyphicon-log-out"></span></a></li>
 				</ul>
 			</div>
 		</div>
