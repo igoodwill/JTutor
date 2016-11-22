@@ -50,3 +50,7 @@ local.properties
 .recommenders/
 
 jtutor.sql
+/target/
+/mvnw
+/mvnw.cmd
+/myapp.log

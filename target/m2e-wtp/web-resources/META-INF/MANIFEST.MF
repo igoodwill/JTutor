@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: JTutor
-Implementation-Version: 0.0.1
-Built-By: igor
+Implementation-Version: 0.0.2
+Built-By: goodwill
 Implementation-Vendor-Id: org.igoodwill.jtutor
 Build-Jdk: 1.8.0_74
 Implementation-URL: http://projects.spring.io/spring-boot/JTutor/
