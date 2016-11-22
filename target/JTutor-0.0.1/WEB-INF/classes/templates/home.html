@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<head lang="en">
+<title>JTutor</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1>Welcome to JTutor</h1>
+		<h3>
+			<a th:href="@{/quest/add}">Create/Update Quests</a>
+		</h3>
+		<h3>
+			<a th:href="@{/quiz/quests}">Quests</a>
+		</h3>
+		<div id="created" th:text="${#dates.format(date)}">October 25, 2016</div>
+	</div>
+</body>
+</html>
