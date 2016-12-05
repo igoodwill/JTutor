@@ -10,6 +10,7 @@ import org.igoodwill.jtutorsb.model.admin.Quest;
 import org.igoodwill.jtutorsb.model.admin.Question;
 import org.igoodwill.jtutorsb.repositories.AnswerDTORepository;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
+import org.igoodwill.jtutorsb.repositories.QuestionRepository;
 import org.igoodwill.jtutorsb.repositories.UserAnswerRepository;
 import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class QuizController {
 
     @Autowired
     UserAnswerRepository userAnswerRepo;
+
+    @Autowired
+    QuestionRepository questionRepo;
 
     @Autowired
     AnswerDTORepository answerDTORepo;
@@ -84,7 +88,32 @@ public class QuizController {
     @GetMapping("{questId}/result")
     public String showResult(@PathVariable final Integer questId, final Model model) {
 	Integer userId = usersService.getLoggedInUser().getId();
-	model.addAttribute("results", answerDTORepo.findAllByUserIdAndQuestId(userId, questId));
+	List<AnswerDTO> userDTOAnswers = answerDTORepo.findAllByUserIdAndQuestId(userId, questId);
+	int count = 0;
+	for (AnswerDTO answerDTO : userDTOAnswers) {
+	    boolean flag = true;
+	    int size = answerDTO.getAnswers().size();
+	    for (int i = 0; i < size; i++) {
+		List<Answer> answers = questionRepo.findOne(answerDTO.getQuestionId()).getAnswers();
+
+		if (answerDTO.getAnswers().get(i).isState() != answers.get(i).isValid()) {
+		    flag = false;
+		    break;
+		}
+	    }
+
+	    if (flag) {
+		count++;
+	    }
+	}
+	String message;
+	int totalCount = userDTOAnswers.size();
+	if ((double) count / totalCount >= 0.75) {
+	    message = "You've passed! Your result is: " + count + " of " + totalCount;
+	} else {
+	    message = "You've not passed! Your result is: " + count + " of " + totalCount;
+	}
+	model.addAttribute("message", message);
 	clearResultsByUserId(userId);
 	return "quiz/results";
     }
