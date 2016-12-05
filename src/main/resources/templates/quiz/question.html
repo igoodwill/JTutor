@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title th:text="${quest.name}"></title>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container">
+		<h4>
+			<a th:text="Home" th:href="@{/home}" href="/"></a>
+		</h4>
+		<div class="container">
+			<h2 th:text="'Question ' + ${questionNumber} + '/' + ${questionsCount} + ':'"></h2>
+			<h2 th:text="${question}"></h2>
+			<form class="form-horizontal" th:object="${answerForm}" th:action="@{'/quiz/' + ${quest.id} + '/question/' + ${questionNumber}}" method="post">
+				<input type="hidden" th:field="*{id}" /> <input type="hidden" th:field="*{userId}" /><input type="hidden" th:field="*{questId}" /> <input type="hidden"
+					th:field="*{questionId}" />
+
+				<div class="container form-group" th:each="answer, answerStat : *{answers}">
+					<input type="hidden" th:field="*{answers[__${answerStat.index}__].id}" /> <input type="hidden" th:field="*{answers[__${answerStat.index}__].value}" /> <input
+						type="checkbox" th:field="*{answers[__${answerStat.index}__].state}"></input> <label th:text="${answer.value}"> </label>
+				</div>
+				<button type="submit" class="btn btn-default">Next</button>
+			</form>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<!--/*/ <th:block th:include="fragments/footer :: footer">&copy; 2016 The Static Templates</th:block> /*/-->
+		</div>
+	</footer>
+</body>
+</html>

@@ -2,7 +2,7 @@ package org.igoodwill.jtutorsb.controller;
 
 import javax.validation.Valid;
 
-import org.igoodwill.jtutorsb.model.Users;
+import org.igoodwill.jtutorsb.model.admin.Users;
 import org.igoodwill.jtutorsb.repositories.UsersRepository;
 import org.igoodwill.jtutorsb.service.MailService;
 import org.igoodwill.jtutorsb.service.UsersService;

@@ -1,6 +1,6 @@
 package org.igoodwill.jtutorsb.repositories;
 
-import org.igoodwill.jtutorsb.model.Users;
+import org.igoodwill.jtutorsb.model.admin.Users;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

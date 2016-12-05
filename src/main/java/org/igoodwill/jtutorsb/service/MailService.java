@@ -2,7 +2,7 @@ package org.igoodwill.jtutorsb.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.igoodwill.jtutorsb.model.Users;
+import org.igoodwill.jtutorsb.model.admin.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;

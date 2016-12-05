@@ -1,4 +1,4 @@
-package org.igoodwill.jtutorsb.model;
+package org.igoodwill.jtutorsb.model.admin;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package org.igoodwill.jtutorsb.model;
+package org.igoodwill.jtutorsb.model.admin;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

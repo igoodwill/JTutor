@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.igoodwill.jtutorsb.JTutorSbApplication;
-import org.igoodwill.jtutorsb.model.Users;
+import org.igoodwill.jtutorsb.model.admin.Users;
 import org.igoodwill.jtutorsb.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

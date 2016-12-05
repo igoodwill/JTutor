@@ -1,11 +1,17 @@
 package org.igoodwill.jtutorsb.controller;
 
-import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.igoodwill.jtutorsb.model.Quest;
-import org.igoodwill.jtutorsb.repositories.AnswerRepository;
+import org.igoodwill.jtutorsb.model.AnswerDTO;
+import org.igoodwill.jtutorsb.model.UserAnswer;
+import org.igoodwill.jtutorsb.model.admin.Answer;
+import org.igoodwill.jtutorsb.model.admin.Quest;
+import org.igoodwill.jtutorsb.model.admin.Question;
+import org.igoodwill.jtutorsb.repositories.AnswerDTORepository;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
-import org.igoodwill.jtutorsb.repositories.QuestionRepository;
+import org.igoodwill.jtutorsb.repositories.UserAnswerRepository;
+import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,51 +25,71 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/quiz/")
 public class QuizController {
 
-	@Autowired
-	QuestRepository questRepo;
+    @Autowired
+    private UsersService usersService;
 
-	@Autowired
-	QuestionRepository questionRepo;
+    @Autowired
+    QuestRepository questRepo;
 
-	@Autowired
-	AnswerRepository answerRepo;
+    @Autowired
+    UserAnswerRepository userAnswerRepo;
 
-	@GetMapping("quests")
-	public String list(Model model) {
-		model.addAttribute("quests", questRepo.findAll());
-		return "quiz/quests";
+    @Autowired
+    AnswerDTORepository answerDTORepo;
+
+    @GetMapping("quests")
+    public String list(Model model) {
+	model.addAttribute("quests", questRepo.findAll());
+	return "quiz/quests";
+    }
+
+    @GetMapping("{questId}/question/{questionNumber}")
+    public String questionForm(@PathVariable final Integer questId, @PathVariable final Integer questionNumber,
+	    final Model model) {
+
+	Quest quest = questRepo.findOne(questId);
+	model.addAttribute("quest", quest);
+	model.addAttribute("questionsCount", quest.getQuestions().size());
+
+	Question currentQuestion = quest.getQuestions().get(questionNumber - 1);
+	model.addAttribute("question", currentQuestion.getValue());
+	List<UserAnswer> userAnswers = new ArrayList<>();
+	for (Answer answer : currentQuestion.getAnswers()) {
+	    userAnswers.add(new UserAnswer(answer));
+	}
+	Integer userId = usersService.getLoggedInUser().getId();
+	AnswerDTO answerForm = new AnswerDTO(userAnswers, userId, questId, currentQuestion.getId());
+	model.addAttribute("answerForm", answerForm);
+	model.addAttribute("answers", answerForm.getAnswers().toArray());
+	return "quiz/question";
+    }
+
+    @PostMapping("{questId}/question/{questionNumber}")
+    public String submitAnswer(@PathVariable final Integer questId, @PathVariable final Integer questionNumber,
+	    @ModelAttribute final AnswerDTO answerForm, final Model model) {
+
+	Quest quest = questRepo.findOne(questId);
+	for (UserAnswer userAnswer : answerForm.getAnswers()) {
+	    userAnswerRepo.save(userAnswer);
+	}
+	answerDTORepo.save(answerForm);
+
+	if (questionNumber == quest.getQuestions().size()) {
+	    return "redirect:/quiz/" + questId + "/result";
 	}
 
-	@GetMapping("{questId}/questions")
-	public String questionForm(@PathVariable final Integer questId, final Model model) {
+	return "redirect:/quiz/" + questId + "/question/" + (questionNumber + 1);
+    }
 
-		Quest quest = questRepo.findOne(questId);
-		model.addAttribute("quest", quest);
-		model.addAttribute("questions", quest.getQuestions());
-		if (!model.containsAttribute("question")) {
-			model.addAttribute("question", quest.getQuestions().get(0).getValue());
-			model.addAttribute("questionId", 1);
-			model.addAttribute("answers", quest.getQuestions().get(0).getAnswers());
-		}
-		return "quiz/questions";
-	}
+    @GetMapping("{questId}/result")
+    public String showResult(@PathVariable final Integer questId, final Model model) {
+	Integer userId = usersService.getLoggedInUser().getId();
+	model.addAttribute("results", answerDTORepo.findAllByUserIdAndQuestId(userId, questId));
+	clearResultsByUserId(userId);
+	return "quiz/results";
+    }
 
-	@PostMapping("{questId}/questions")
-	public String nextQuestion(@PathVariable final Integer questId,
-			@Valid @ModelAttribute("questionId") final Integer questionId, final Model model) {
-
-		Quest quest = questRepo.findOne(questId);
-		
-		if (questionId == quest.getQuestions().size())
-		{
-			// TODO
-		}
-		
-		model.addAttribute("quest", quest);
-		model.addAttribute("questions", quest.getQuestions());
-		model.addAttribute("question", quest.getQuestions().get(questionId).getValue());
-		model.addAttribute("questionId", questionId + 1);
-
-		return "quiz/questions";
-	}
+    public void clearResultsByUserId(Integer userId) {
+	answerDTORepo.deleteAllByUserId(userId);
+    }
 }

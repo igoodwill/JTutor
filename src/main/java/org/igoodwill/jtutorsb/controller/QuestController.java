@@ -2,7 +2,7 @@ package org.igoodwill.jtutorsb.controller;
 
 import javax.validation.Valid;
 
-import org.igoodwill.jtutorsb.model.Quest;
+import org.igoodwill.jtutorsb.model.admin.Quest;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

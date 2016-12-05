@@ -1,4 +1,4 @@
-package org.igoodwill.jtutorsb.model;
+package org.igoodwill.jtutorsb.model.admin;
 
 import java.util.ArrayList;
 import java.util.List;

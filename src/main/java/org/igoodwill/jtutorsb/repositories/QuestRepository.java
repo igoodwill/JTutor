@@ -1,6 +1,6 @@
 package org.igoodwill.jtutorsb.repositories;
 
-import org.igoodwill.jtutorsb.model.Quest;
+import org.igoodwill.jtutorsb.model.admin.Quest;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

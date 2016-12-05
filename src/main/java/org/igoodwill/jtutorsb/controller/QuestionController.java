@@ -2,8 +2,8 @@ package org.igoodwill.jtutorsb.controller;
 
 import javax.validation.Valid;
 
-import org.igoodwill.jtutorsb.model.Quest;
-import org.igoodwill.jtutorsb.model.Question;
+import org.igoodwill.jtutorsb.model.admin.Quest;
+import org.igoodwill.jtutorsb.model.admin.Question;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
 import org.igoodwill.jtutorsb.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

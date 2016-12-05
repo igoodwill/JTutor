@@ -45,7 +45,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="answer, answerStat : *{answers}">
+					<tr th:each="answer: *{answers}">
 						<td><a th:text="${answer.value}"
 							th:href="@{/quest/{id}/question/{questionId}/answer/{answerId}/edit(id=${quest.id}, questionId=${question.id}, answerId=${answer.id})}"></a></td>
 						<td th:text="${answer.valid}"></td>

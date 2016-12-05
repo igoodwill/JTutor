@@ -1,10 +1,10 @@
 package org.igoodwill.jtutorsb.repositories;
 
-import org.igoodwill.jtutorsb.model.admin.Answer;
+import org.igoodwill.jtutorsb.model.UserAnswer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AnswerRepository extends CrudRepository<Answer, Integer> {
+public interface UserAnswerRepository extends CrudRepository<UserAnswer, Integer> {
 
 }
