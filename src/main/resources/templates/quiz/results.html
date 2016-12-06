@@ -11,6 +11,34 @@
 		</h4>
 		<div class="container">
 			<h2 th:text="${message}"></h2>
+			<h2>Correct answers:</h2>
+			<div class="container" th:each="question : ${questions}">
+				<div>
+					<h2 class="text-success"
+						th:unless="${wrongQuestionIds.contains(question.id)}"
+						th:text="${questionStat.count} + '. ' + ${question.value}"></h2>
+					<h2 class="text-danger"
+						th:if="${wrongQuestionIds.contains(question.id)}"
+						th:text="${questionStat.count} + '. ' + ${question.value}"></h2>
+					<form class="form-horizontal" th:object="${question}">
+						<div class="container form-group"
+							th:each="answer, answerStat : *{answers}">
+							<div class="checkbox">
+								<input type="checkbox" th:checked="${answer.valid}"
+									disabled="disabled" />
+								<th:block th:switch="true">
+									<label th:case="${answer.valid}" class="text-success"
+										th:text="${answer.value}"></label>
+									<label
+										th:case="${userAnswers[__${questionStat.index}__].answers[__${answerStat.index}__].state}"
+										class="text-danger" th:text="${answer.value}"></label>
+									<label th:case="*" th:text="${answer.value}"></label>
+								</th:block>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 	<footer class="footer">

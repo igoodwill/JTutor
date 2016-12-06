@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/quiz/")
@@ -73,7 +74,22 @@ public class QuizController {
 
 	@PostMapping("{questId}/question/{questionNumber}")
 	public String submitAnswer(@PathVariable final Integer questId, @PathVariable final Integer questionNumber,
-			@ModelAttribute final AnswerDTO answerForm, final Model model) {
+			@ModelAttribute final AnswerDTO answerForm, final Model model, final RedirectAttributes redirectAttrs) {
+
+		boolean flag = true;
+		for (UserAnswer userAnswer : answerForm.getAnswers()) {
+			if (userAnswer.isState()) {
+				flag = false;
+				break;
+			}
+		}
+
+		if (flag) {
+			redirectAttrs.addFlashAttribute("isSomeAnswerChoosed", true);
+			return "redirect:/quiz/" + questId + "/question/" + questionNumber;
+		}
+
+		redirectAttrs.addFlashAttribute("isSomeAnswerChoosed", false);
 
 		Quest quest = questRepo.findOne(questId);
 		for (UserAnswer userAnswer : answerForm.getAnswers()) {
@@ -91,16 +107,25 @@ public class QuizController {
 	@GetMapping("{questId}/result")
 	public String showResult(@PathVariable final Integer questId, final Model model) {
 		Integer userId = usersService.getLoggedInUser().getId();
-		List<AnswerDTO> userDTOAnswers = answerDTORepo.findAllByUserIdAndQuestId(userId, questId);
+
+		List<AnswerDTO> userAnswers = answerDTORepo.findAllByUserIdAndQuestId(userId, questId);
+		List<Question> questions = new ArrayList<>();
+		List<Integer> wrongQuestionIds = new ArrayList<>();
 		int count = 0;
-		for (AnswerDTO answerDTO : userDTOAnswers) {
+
+		for (AnswerDTO answerDTO : userAnswers) {
 			boolean flag = true;
 			int size = answerDTO.getAnswers().size();
+			Integer questionId = answerDTO.getQuestionId();
+			Question question = questionRepo.findOne(questionId);
+			questions.add(question);
+
 			for (int i = 0; i < size; i++) {
-				List<Answer> answers = questionRepo.findOne(answerDTO.getQuestionId()).getAnswers();
+				List<Answer> answers = question.getAnswers();
 
 				if (answerDTO.getAnswers().get(i).isState() != answers.get(i).isValid()) {
 					flag = false;
+					wrongQuestionIds.add(questionId);
 					break;
 				}
 			}
@@ -109,14 +134,20 @@ public class QuizController {
 				count++;
 			}
 		}
+
 		String message;
-		int totalCount = userDTOAnswers.size();
+		int totalCount = userAnswers.size();
 		if ((double) count / totalCount >= 0.75) {
 			message = "You've passed! Your result is: " + count + " of " + totalCount;
 		} else {
 			message = "You've not passed! Your result is: " + count + " of " + totalCount;
 		}
+
 		model.addAttribute("message", message);
+		model.addAttribute("questions", questions);
+		model.addAttribute("userAnswers", userAnswers);
+		model.addAttribute("wrongQuestionIds", wrongQuestionIds);
+
 		clearResultsByUserId(userId);
 		return "quiz/results";
 	}
