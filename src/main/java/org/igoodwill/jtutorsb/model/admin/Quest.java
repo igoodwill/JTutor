@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,16 +30,6 @@ public class Quest {
 	@NotNull
 	@Column(name = "quest_description", nullable = false)
 	private String description;
-
-	@NotNull
-	@Min(0)
-	@Column(name = "quest_price", nullable = false)
-	private Integer price;
-
-	@NotNull
-	@Min(0)
-	@Column(name = "quest_prize", nullable = false)
-	private Integer prize;
 
 	@OneToMany(orphanRemoval = true)
 	@JoinColumn(name = "quest_id")
@@ -70,22 +59,6 @@ public class Quest {
 		this.description = description;
 	}
 
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	public Integer getPrize() {
-		return prize;
-	}
-
-	public void setPrize(Integer prize) {
-		this.prize = prize;
-	}
-
 	public List<Question> getQuestions() {
 		return questions;
 	}
@@ -106,8 +79,7 @@ public class Quest {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((prize == null) ? 0 : prize.hashCode());
+		result = prime * result + ((questions == null) ? 0 : questions.hashCode());
 		return result;
 	}
 
@@ -135,15 +107,10 @@ public class Quest {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (price == null) {
-			if (other.price != null)
+		if (questions == null) {
+			if (other.questions != null)
 				return false;
-		} else if (!price.equals(other.price))
-			return false;
-		if (prize == null) {
-			if (other.prize != null)
-				return false;
-		} else if (!prize.equals(other.prize))
+		} else if (!questions.equals(other.questions))
 			return false;
 		return true;
 	}
