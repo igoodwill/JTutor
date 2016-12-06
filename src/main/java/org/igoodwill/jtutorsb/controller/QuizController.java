@@ -88,10 +88,17 @@ public class QuizController {
 			redirectAttrs.addFlashAttribute("isSomeAnswerChoosed", true);
 			return "redirect:/quiz/" + questId + "/question/" + questionNumber;
 		}
-
 		redirectAttrs.addFlashAttribute("isSomeAnswerChoosed", false);
 
+		Integer userId = answerForm.getUserId();
+		Integer questionId = answerForm.getQuestionId();
+
+		if (answerDTORepo.findByUserIdAndQuestionId(userId, questionId) != null) {
+			answerDTORepo.deleteAllByUserIdAndQuestionId(userId, questionId);
+		}
+
 		Quest quest = questRepo.findOne(questId);
+
 		for (UserAnswer userAnswer : answerForm.getAnswers()) {
 			userAnswerRepo.save(userAnswer);
 		}
@@ -112,6 +119,11 @@ public class QuizController {
 		List<Question> questions = new ArrayList<>();
 		List<Integer> wrongQuestionIds = new ArrayList<>();
 		int count = 0;
+
+		if (userAnswers.size() != questRepo.findOne(questId).getQuestions().size()) {
+			clearResultsByUserId(userId);
+			return "quiz/error";
+		}
 
 		for (AnswerDTO answerDTO : userAnswers) {
 			boolean flag = true;

@@ -10,8 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface AnswerDTORepository extends CrudRepository<AnswerDTO, Integer> {
 
-    @Transactional
-    public void deleteAllByUserId(Integer userId);
+	@Transactional
+	public void deleteAllByUserId(Integer userId);
 
-    public List<AnswerDTO> findAllByUserIdAndQuestId(Integer userId, Integer questId);
+	@Transactional
+	public void deleteAllByUserIdAndQuestionId(Integer userId, Integer questionId);
+
+	public List<AnswerDTO> findAllByUserIdAndQuestId(Integer userId, Integer questId);
+
+	public Boolean findByUserIdAndQuestionId(Integer userId, Integer questionId);
 }
