@@ -2,6 +2,7 @@ package org.igoodwill.jtutorsb.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,66 +14,66 @@ import javax.persistence.Table;
 @Table(name = "answer_dto")
 public class AnswerDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @OneToMany(orphanRemoval = true)
-    private List<UserAnswer> answers;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserAnswer> answers;
 
-    private Integer userId;
+	private Integer userId;
 
-    private Integer questId;
+	private Integer questId;
 
-    private Integer questionId;
+	private Integer questionId;
 
-    public AnswerDTO() {
-    }
+	public AnswerDTO() {
+	}
 
-    public AnswerDTO(List<UserAnswer> answers, Integer userId, Integer questId, Integer questionId) {
-	this.answers = answers;
-	this.userId = userId;
-	this.questId = questId;
-	this.questionId = questionId;
-    }
+	public AnswerDTO(List<UserAnswer> answers, Integer userId, Integer questId, Integer questionId) {
+		this.answers = answers;
+		this.userId = userId;
+		this.questId = questId;
+		this.questionId = questionId;
+	}
 
-    public Integer getId() {
-	return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public List<UserAnswer> getAnswers() {
-	return answers;
-    }
+	public List<UserAnswer> getAnswers() {
+		return answers;
+	}
 
-    public void setAnswers(List<UserAnswer> answers) {
-	this.answers = answers;
-    }
+	public void setAnswers(List<UserAnswer> answers) {
+		this.answers = answers;
+	}
 
-    public Integer getUserId() {
-	return userId;
-    }
+	public Integer getUserId() {
+		return userId;
+	}
 
-    public void setUserId(Integer userId) {
-	this.userId = userId;
-    }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public Integer getQuestId() {
-	return questId;
-    }
+	public Integer getQuestId() {
+		return questId;
+	}
 
-    public void setQuestId(Integer questId) {
-	this.questId = questId;
-    }
+	public void setQuestId(Integer questId) {
+		this.questId = questId;
+	}
 
-    public Integer getQuestionId() {
-	return questionId;
-    }
+	public Integer getQuestionId() {
+		return questionId;
+	}
 
-    public void setQuestionId(Integer questionId) {
-	this.questionId = questionId;
-    }
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
+	}
 }

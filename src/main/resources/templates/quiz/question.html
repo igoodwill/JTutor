@@ -10,6 +10,19 @@
 			<a th:text="Home" th:href="@{/home}" href="/"></a>
 		</h4>
 		<div class="container">
+			<div id="horizontal">
+				<ul th:each="number : ${numbersBefore}">
+					<li><a th:text="${number}"
+						th:href="@{'/quiz/' + ${quest.id} + '/question/' + ${number}}"
+						href="/"></a></li>
+				</ul>
+				<label th:text="${questionNumber}"></label>
+				<ul th:each="number : ${numbersAfter}">
+					<li><a th:text="${number}"
+						th:href="@{'/quiz/' + ${quest.id} + '/question/' + ${number}}"
+						href="/"></a></li>
+				</ul>
+			</div>
 			<h2
 				th:text="'Question ' + ${questionNumber} + '/' + ${questionsCount} + ':'"></h2>
 			<h2 th:text="${question}"></h2>
@@ -35,7 +48,10 @@
 					<span class="text-danger" th:if="${isSomeAnswerChoosed}">Please,
 						choose at least 1 answer!</span>
 				</div>
-				<button type="submit" class="btn btn-default">Next</button>
+				<button th:unless="${questionNumber} == ${questionsCount}"
+					type="submit" class="btn btn-default">Next</button>
+				<button th:if="${questionNumber} == ${questionsCount}" type="submit"
+					class="btn btn-default">Finish</button>
 			</form>
 		</div>
 	</div>

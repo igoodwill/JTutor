@@ -52,8 +52,11 @@ public class QuizController {
 	public String questionForm(@PathVariable final Integer questId, @PathVariable final Integer questionNumber,
 			final Model model) {
 
-		if (questionNumber == 1)
-			clearResultsByUserId(usersService.getLoggedInUser().getId());
+		Integer userId = usersService.getLoggedInUser().getId();
+		if (questionNumber == 0) {
+			clearResultsByUserId(userId);
+			return "redirect:/quiz/" + questId + "/question/1";
+		}
 
 		Quest quest = questRepo.findOne(questId);
 		model.addAttribute("quest", quest);
@@ -61,14 +64,33 @@ public class QuizController {
 
 		Question currentQuestion = quest.getQuestions().get(questionNumber - 1);
 		model.addAttribute("question", currentQuestion.getValue());
-		List<UserAnswer> userAnswers = new ArrayList<>();
-		for (Answer answer : currentQuestion.getAnswers()) {
-			userAnswers.add(new UserAnswer(answer));
+
+		AnswerDTO answerForm = answerDTORepo.findByUserIdAndQuestionId(userId, currentQuestion.getId());
+		if (answerForm == null) {
+			List<UserAnswer> userAnswers = new ArrayList<>();
+			for (Answer answer : currentQuestion.getAnswers()) {
+				userAnswers.add(new UserAnswer(answer));
+			}
+			answerForm = new AnswerDTO(userAnswers, userId, questId, currentQuestion.getId());
 		}
-		Integer userId = usersService.getLoggedInUser().getId();
-		AnswerDTO answerForm = new AnswerDTO(userAnswers, userId, questId, currentQuestion.getId());
+
 		model.addAttribute("answerForm", answerForm);
 		model.addAttribute("answers", answerForm.getAnswers().toArray());
+
+		List<Integer> numbersBefore = new ArrayList<>();
+		for (int i = 1; i < questionNumber; i++) {
+			numbersBefore.add(i);
+		}
+		model.addAttribute("numbersBefore", numbersBefore);
+
+		List<Integer> numbersAfter = new ArrayList<>();
+		for (int i = questionNumber + 1; i <= quest.getQuestions().size(); i++) {
+			if (answerDTORepo.findByUserIdAndQuestionId(userId, quest.getQuestions().get(i - 1).getId()) != null) {
+				numbersAfter.add(i);
+			}
+		}
+		model.addAttribute("numbersAfter", numbersAfter);
+
 		return "quiz/question";
 	}
 
@@ -94,7 +116,7 @@ public class QuizController {
 		Integer questionId = answerForm.getQuestionId();
 
 		if (answerDTORepo.findByUserIdAndQuestionId(userId, questionId) != null) {
-			answerDTORepo.deleteAllByUserIdAndQuestionId(userId, questionId);
+			answerDTORepo.deleteByUserIdAndQuestionId(userId, questionId);
 		}
 
 		Quest quest = questRepo.findOne(questId);
@@ -160,7 +182,6 @@ public class QuizController {
 		model.addAttribute("userAnswers", userAnswers);
 		model.addAttribute("wrongQuestionIds", wrongQuestionIds);
 
-		clearResultsByUserId(userId);
 		return "quiz/results";
 	}
 

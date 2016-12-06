@@ -21,7 +21,7 @@
 				<tbody>
 					<tr th:each="quest : ${quests}">
 						<td><a th:text="${quest.name}"
-							th:href="@{'/quiz/' + ${quest.id} + '/question/1'}"></a></td>
+							th:href="@{'/quiz/' + ${quest.id} + '/question/0'}"></a></td>
 						<td th:text="${quest.description}">Description</td>
 					</tr>
 				</tbody>
