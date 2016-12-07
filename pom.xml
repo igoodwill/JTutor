@@ -6,7 +6,6 @@
 	<groupId>org.igoodwill.jtutor</groupId>
 	<artifactId>JTutor</artifactId>
 	<version>0.0.2</version>
-	<packaging>war</packaging>
 
 	<name>JTutor</name>
 	<description>JTutor</description>
