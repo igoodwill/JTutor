@@ -55,3 +55,4 @@ jtutor.sql
 /mvnw.cmd
 /myapp.log
 /.mvn/
+.DS_Store
