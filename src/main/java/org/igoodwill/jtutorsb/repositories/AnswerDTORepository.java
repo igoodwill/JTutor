@@ -14,7 +14,7 @@ public interface AnswerDTORepository extends CrudRepository<AnswerDTO, Integer> 
 	public void deleteAllByUserId(Integer userId);
 
 	@Transactional
-	public void deleteByUserIdAndQuestionId(Integer userId, Integer questionId);
+	public void deleteAllByUserIdAndQuestionId(Integer userId, Integer questionId);
 
 	public List<AnswerDTO> findAllByUserIdAndQuestId(Integer userId, Integer questId);
 

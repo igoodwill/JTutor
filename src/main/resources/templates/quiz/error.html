@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
 <head lang="en">
 <title>Error</title>
-<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-	<div class="container">
-		<h4>
-			<a th:text="Home" th:href="@{/home}" href="/"></a>
-		</h4>
-	</div>
-	<div class="alert alert-danger">Sorry, you've not answered all
-		questions.</div>
+	<div layout:fragment="content" class="alert alert-danger">Sorry,
+		you've not answered all questions.</div>
 </body>
 </html>

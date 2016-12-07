@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
 <head lang="en">
 <title>Quizes</title>
-<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-	<div class="container">
-		<h4>
-			<a th:text="Home" th:href="@{/home}" href="/"></a>
-		</h4>
+	<div layout:fragment="content" class="container">
 		<div class="container" th:unless="${#lists.isEmpty(quests)}">
 			<h2>Quizes</h2>
 			<table class="table table-striped table-condensed">
@@ -28,10 +26,5 @@
 			</table>
 		</div>
 	</div>
-	<footer class="footer">
-		<div class="container">
-			<!--/*/ <th:block th:include="fragments/footer :: footer">&copy; 2016 The Static Templates</th:block> /*/-->
-		</div>
-	</footer>
 </body>
 </html>

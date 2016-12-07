@@ -116,7 +116,7 @@ public class QuizController {
 		Integer questionId = answerForm.getQuestionId();
 
 		if (answerDTORepo.findByUserIdAndQuestionId(userId, questionId) != null) {
-			answerDTORepo.deleteByUserIdAndQuestionId(userId, questionId);
+			answerDTORepo.deleteAllByUserIdAndQuestionId(userId, questionId);
 		}
 
 		Quest quest = questRepo.findOne(questId);

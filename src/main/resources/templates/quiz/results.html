@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
 <head lang="en">
 <title>Results</title>
-<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
-	<div class="container">
-		<h4>
-			<a th:text="Home" th:href="@{/home}" href="/"></a>
-		</h4>
+	<div layout:fragment="content" class="container">
 		<div class="container">
 			<h2 th:text="${message}"></h2>
 			<h2>Correct answers:</h2>
@@ -41,10 +39,5 @@
 			</div>
 		</div>
 	</div>
-	<footer class="footer">
-		<div class="container">
-			<!--/*/ <th:block th:include="fragments/footer :: footer">&copy; 2016 The Static Templates</th:block> /*/-->
-		</div>
-	</footer>
 </body>
 </html>

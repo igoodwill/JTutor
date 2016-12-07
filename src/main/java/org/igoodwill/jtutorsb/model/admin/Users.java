@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,9 +23,6 @@ public class Users {
 	@NotNull
 	@Size(min = 3, max = 100, message = "Password must at least 3 characters.")
 	private String password;
-
-	@Transient
-	private String confirmPassword;
 
 	@Email(message = "Email address is not valid.")
 	@NotNull
@@ -64,14 +60,6 @@ public class Users {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
 	}
 
 	public String getEmail() {
@@ -124,9 +112,5 @@ public class Users {
 
 	public Boolean isAdmin() {
 		return this.role.equals("ROLE_ADMIN");
-	}
-
-	public Boolean isMatchingPasswords() {
-		return this.password.equals(this.confirmPassword);
 	}
 }
