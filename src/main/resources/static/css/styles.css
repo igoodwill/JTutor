@@ -152,8 +152,6 @@ footer {
 
 #styled pre {
 	font-family: Tahoma, sans-serif;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-	word-break: normal;
-	white-space: normal;
+	white-space: pre-wrap;
+	word-break: keep-all;
 }
