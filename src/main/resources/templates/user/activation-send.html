@@ -6,7 +6,7 @@
 <title>Re-send Activation</title>
 </head>
 <body>
-	<div id="styled" layout:fragment="content">
+	<div layout:fragment="content">
 		<form class="form-signin" th:action="@{/user/activation-send}"
 			th:object="${users}" action="/user/activation-send" method="post">
 			<h2 class="form-signin-heading">Re-send Activation</h2>

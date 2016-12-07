@@ -6,7 +6,7 @@
 <title>REGISTER</title>
 </head>
 <body>
-	<div id="styled" layout:fragment="content">
+	<div layout:fragment="content">
 		<form class="form-signin" th:action="@{/user/register}"
 			th:object="${users}" action="/user/register" method="post">
 			<h2 class="form-signin-heading">Please register</h2>
