@@ -3,12 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head lang="en">
-<title>Quizzes</title>
+<title>Lectures</title>
 </head>
 <body>
 	<div id="styled" layout:fragment="content" class="container">
-		<div class="container" th:unless="${#lists.isEmpty(quests)}">
-			<h2>Quizzes</h2>
+		<div class="container" th:unless="${#lists.isEmpty(lectures)}">
+			<h2>Lectures</h2>
 			<table class="table table-striped table-condensed">
 				<thead>
 					<tr>
@@ -17,10 +17,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="quest : ${quests}">
-						<td><a th:text="${quest.name}"
-							th:href="@{'/quiz/' + ${quest.id} + '/question/0'}"></a></td>
-						<td th:text="${quest.description}">Description</td>
+					<tr th:each="lecture : ${lectures}">
+						<td><a th:text="${lecture.name}"
+							th:href="@{'/lecture/' + ${lecture.id}}"></a></td>
+						<td th:text="${lecture.description}">Description</td>
 					</tr>
 				</tbody>
 			</table>

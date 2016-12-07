@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
 <title>USER LIST</title>
 </head>
 <body>
-	<div layout:fragment="content">
+	<div id="styled" layout:fragment="content">
 		<h1>USER LIST</h1>
 
 		<div class="table-responsive">
@@ -28,9 +30,13 @@
 						<td th:text="${user.firstName}">first name</td>
 						<td th:text="${user.lastName}">last name</td>
 						<td th:text="${user.lastLogin}">last login</td>
-						<td th:if="${g_user.isAdmin()}"><a th:href="@{/user/delete(id=${user.id})}">Delete</a></td>
-						<td th:if="${g_user.isAdmin()}"><a th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a></td>
-						<td th:if="${g_user.isAdmin()}"><a th:href="@{/user/autologin(username=${user.username})}">Login As</a></td>
+						<td th:if="${g_user.isAdmin()}"><a
+							th:href="@{/user/delete(id=${user.id})}">Delete</a></td>
+						<td th:if="${g_user.isAdmin()}"><a
+							th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a></td>
+						<td th:if="${g_user.isAdmin()}"><a
+							th:href="@{/user/autologin(username=${user.username})}">Login
+								As</a></td>
 					</tr>
 				</tbody>
 			</table>

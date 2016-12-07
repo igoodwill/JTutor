@@ -1,22 +1,17 @@
 package org.igoodwill.jtutorsb.model.admin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "quest")
-public class Quest {
+@Table(name = "lecture")
+public class Lecture {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +19,18 @@ public class Quest {
 
 	@NotNull
 	@Size(min = 6, max = 32)
-	@Column(name = "quest_name", nullable = false, unique = true)
+	@Column(name = "lecture_name", nullable = false, unique = true)
 	private String name;
 
 	@NotNull
 	@Size(min = 6, max = 64)
-	@Column(name = "quest_description", nullable = false)
+	@Column(name = "lecture_description", nullable = false)
 	private String description;
 
-	@OneToMany(orphanRemoval = true)
-	@JoinColumn(name = "quest_id")
-	private List<Question> questions = new ArrayList<>();
+	@NotNull
+	@Size(min = 16, max = 4095)
+	@Column(name = "lecture_value", nullable = false)
+	private String value;
 
 	public Integer getId() {
 		return id;
@@ -60,17 +56,12 @@ public class Quest {
 		this.description = description;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
+	public String getValue() {
+		return value;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-
-	@Override
-	public String toString() {
-		return name;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	@Override
@@ -80,7 +71,7 @@ public class Quest {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((questions == null) ? 0 : questions.hashCode());
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
 
@@ -92,7 +83,7 @@ public class Quest {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Quest other = (Quest) obj;
+		Lecture other = (Lecture) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -108,10 +99,10 @@ public class Quest {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (questions == null) {
-			if (other.questions != null)
+		if (value == null) {
+			if (other.value != null)
 				return false;
-		} else if (!questions.equals(other.questions))
+		} else if (!value.equals(other.value))
 			return false;
 		return true;
 	}

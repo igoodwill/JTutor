@@ -6,7 +6,7 @@
 <title>Answers</title>
 </head>
 <body>
-	<div layout:fragment="content" class="container">
+	<div id="styled" layout:fragment="content" class="container">
 		<h4>
 			<a th:text="Home" href="home" th:href="@{/home}"></a> -> <a
 				th:text="Quests" href="quest/add" th:href="@{/quest/add}"></a> -> <a
@@ -23,8 +23,8 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Value:</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" th:field="*{value}"
-							required="required" autofocus="autofocus" />
+						<textarea class="form-control" th:field="*{value}"
+							required="required" autofocus="autofocus"></textarea>
 						<p class="label label-danger"
 							th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value
 							Error</p>

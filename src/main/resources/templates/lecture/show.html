@@ -2,16 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
-<head>
-<title>Re-send Activation</title>
+<head lang="en">
+<title th:text="${lecture.name}"></title>
 </head>
 <body>
 	<div id="styled" layout:fragment="content">
-		<div class="alert alert-info">
-			<p>Activation was just sent to your inbox.</p>
-			<p>Please check your email for instructions on how to activate
-				your account.</p>
-		</div>
+		<pre th:text="${lecture.value}"></pre>
 	</div>
 </body>
 </html>

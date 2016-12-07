@@ -38,7 +38,7 @@ public class QuestionController {
 		if (!model.containsAttribute("questionForm")) {
 			model.addAttribute("questionForm", new Question());
 		}
-		return "questions";
+		return "admin/questions";
 	}
 
 	@PostMapping("{questId}/questions")
@@ -72,7 +72,7 @@ public class QuestionController {
 		if (!model.containsAttribute("questionForm")) {
 			model.addAttribute("questionForm", questionRepo.findOne(questionId));
 		}
-		return "questions";
+		return "admin/questions";
 	}
 
 	@PostMapping("{questId}/question/{questionId}/edit")

@@ -43,7 +43,7 @@ public class AnswerController {
 		model.addAttribute("answers", question.getAnswers());
 		model.addAttribute("quest", quest);
 		model.addAttribute("answerForm", new Answer());
-		return "answers";
+		return "admin/answers";
 	}
 
 	@PostMapping("{questId}/question/{questionId}/answers")
@@ -75,7 +75,7 @@ public class AnswerController {
 		model.addAttribute("answers", question.getAnswers());
 		model.addAttribute("answerForm", answerRepo.findOne(answerId));
 		model.addAttribute("quest", questRepo.findOne(questId));
-		return "answers";
+		return "admin/answers";
 	}
 
 	@PostMapping("{questId}/question/{questionId}/answer/{answerId}/edit")

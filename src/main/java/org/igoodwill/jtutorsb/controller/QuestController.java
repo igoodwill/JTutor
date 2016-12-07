@@ -25,39 +25,33 @@ public class QuestController {
 	public String questForm(final Model model) {
 		model.addAttribute("quests", repo.findAll());
 		model.addAttribute("questForm", new Quest());
-		return "quests";
+		return "admin/quests";
 	}
 
 	@PostMapping("add")
-	public String questSubmit(
-			@Valid @ModelAttribute("questForm") final Quest questForm, 
-			final BindingResult result) {
-		
+	public String questSubmit(@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result) {
+
 		if (result.hasErrors()) {
-			return "quests";
+			return "admin/quests";
 		}
 		repo.save(questForm);
 		return "redirect:/quest/add";
 	}
 
 	@GetMapping("{questId}/edit")
-	public String editQuest(
-			@PathVariable Integer questId, 
-			final Model model) {
-		
+	public String editQuest(@PathVariable Integer questId, final Model model) {
+
 		model.addAttribute("quests", repo.findAll());
 		model.addAttribute("questForm", repo.findOne(questId));
-		return "quests";
+		return "admin/quests";
 	}
 
 	@PostMapping("{questId}/edit")
-	public String updateQuest(
-			@PathVariable final Integer questId, 
-			@Valid @ModelAttribute("questForm") final Quest questForm, 
-			final BindingResult result) {
-		
+	public String updateQuest(@PathVariable final Integer questId,
+			@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result) {
+
 		if (result.hasErrors()) {
-			return "quests";
+			return "admin/quests";
 		}
 		repo.save(questForm);
 		return "redirect:/quest/add";
