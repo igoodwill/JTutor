@@ -6,7 +6,7 @@
 <body>
 	<div layout:fragment="content">
 		<div id="layout"></div>
-		<script type="text/javascript" th:include="javascript">
+		<script type="text/javascript" th:inline="javascript">
 			/*<![CDATA[*/
 				
 			$("#layout").html([[${layout.value}]]);
