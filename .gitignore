@@ -50,9 +50,12 @@ local.properties
 .recommenders/
 
 jtutor.sql
+/JTutorServer
 /target/
 /mvnw
 /mvnw.cmd
 /myapp.log
 /.mvn/
 .DS_Store
+/mydb.mv.db
+/mydb.trace.db
