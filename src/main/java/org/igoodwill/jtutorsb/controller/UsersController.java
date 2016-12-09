@@ -185,7 +185,7 @@ public class UsersController {
 
 		model.addAttribute("user", u);
 
-		return "/user/edit";
+		return "user/edit";
 	}
 
 	@PostMapping("/user/edit")
