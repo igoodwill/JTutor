@@ -17,13 +17,13 @@
 				th:text="#{email_and_password_are_incorrect}"></div>
 			<input type="text" id="inputEmail" name="username"
 				class="form-control top"
-				placeholder="#{username} + ' or ' + #{email}" required="required"
+				th:placeholder="#{username} + ' or ' + #{email}" required="required"
 				autofocus="autofocus" /> <input type="password" id="inputPassword"
 				name="password" class="form-control bottom"
-				placeholder="#{password}" required="required" />
+				th:placeholder="#{password}" required="required" />
 			<div class="checkbox">
 				<label> <input type="checkbox" name="remember-me"
-					th:text="remember_me" /></label>
+					th:text="#{remember_me}" /></label>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit"
 				th:text="#{sign_in}"></button>

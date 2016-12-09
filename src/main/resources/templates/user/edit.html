@@ -17,11 +17,11 @@
 				class="alert alert-danger">Email error</div>
 
 			<input type="text" th:field="*{email}" class="form-control top"
-				placeholder="#{email}" required="required" autofocus="autofocus" />
+				th:placeholder="#{email}" required="required" autofocus="autofocus" />
 			<input type="text" th:field="*{firstName}"
-				class="form-control middle" placeholder="#{first_name}" /> <input
+				class="form-control middle" th:placeholder="#{first_name}" /> <input
 				type="text" th:field="*{lastName}" class="form-control bottom"
-				placeholder="#{last_name}" /> <input type="hidden"
+				th:placeholder="#{last_name}" /> <input type="hidden"
 				th:field="*{username}" /> <input type="hidden" th:field="*{id}" />
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit"
