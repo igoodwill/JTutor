@@ -49,16 +49,10 @@ local.properties
 # Code Recommenders
 .recommenders/
 
-<<<<<<< HEAD
-=======
-jtutor.sql
 /JTutorServer
->>>>>>> af47097a7f108f89dbf485179e2b5e430175de8e
 /target/
 /mvnw
 /mvnw.cmd
 /myapp.log
 /.mvn/
 .DS_Store
-/mydb.mv.db
-/mydb.trace.db
