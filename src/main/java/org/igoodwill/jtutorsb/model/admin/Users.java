@@ -113,4 +113,8 @@ public class Users {
 	public Boolean isAdmin() {
 		return this.role.equals("ROLE_ADMIN");
 	}
+
+	public Boolean isTutor() {
+		return this.role.equals("ROLE_TUTOR");
+	}
 }

@@ -9,14 +9,14 @@
 	<div layout:fragment="content">
 		<h1>Welcome to JTutor</h1>
 		<h3>
-			<a th:if="${isAdmin}" th:href="@{/quest/add}">Create/Update
+			<a th:if="${isAdminOrTutor}" th:href="@{/quest/add}">Create/Update
 				Quests</a>
 		</h3>
 		<h3>
 			<a th:href="@{/quiz/quests}">Quests</a>
 		</h3>
 		<h3>
-			<a th:if="${isAdmin}" th:href="@{/lecture/add}">Create/Update
+			<a th:if="${isAdminOrTutor}" th:href="@{/lecture/add}">Create/Update
 				Lectures</a>
 		</h3>
 		<h3>

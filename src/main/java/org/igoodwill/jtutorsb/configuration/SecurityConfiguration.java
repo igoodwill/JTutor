@@ -16,28 +16,29 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UsersService userService;
+	@Autowired
+	private UsersService userService;
 
-    @Value("${app.secret}")
-    private String applicationSecret;
+	@Value("${app.secret}")
+	private String applicationSecret;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-	http.authorizeRequests().antMatchers("/webjars/**", "/js/**").permitAll().antMatchers("/user/register")
-		.permitAll().antMatchers("/user/activate").permitAll().antMatchers("/user/activation-send").permitAll()
-		.antMatchers("/user/reset-password").permitAll().antMatchers("/user/reset-password-change").permitAll()
-		.antMatchers("/user/autologin").access("hasRole('ROLE_ADMIN')").antMatchers("/user/delete")
-		.access("hasRole('ROLE_ADMIN')").antMatchers("/quest/**").access("hasRole('ROLE_ADMIN')").anyRequest()
-		.authenticated().and().formLogin().loginPage("/login").failureUrl("/login?error").permitAll().and()
-		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and()
-		.rememberMe().key(applicationSecret).tokenValiditySeconds(31536000);
-	http.csrf().disable();
-	http.headers().frameOptions().disable();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/webjars/**", "/js/**").permitAll().antMatchers("/user/register")
+				.permitAll().antMatchers("/user/activate").permitAll().antMatchers("/user/activation-send").permitAll()
+				.antMatchers("/user/reset-password").permitAll().antMatchers("/user/reset-password-change").permitAll()
+				.antMatchers("/user/autologin").access("hasRole('ROLE_ADMIN')").antMatchers("/user/delete")
+				.access("hasRole('ROLE_ADMIN')").antMatchers("/quest/**")
+				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')").anyRequest().authenticated().and().formLogin()
+				.loginPage("/login").failureUrl("/login?error").permitAll().and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and()
+				.rememberMe().key(applicationSecret).tokenValiditySeconds(31536000);
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+	}
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-	auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
-    }
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+	}
 }
