@@ -1,6 +1,7 @@
 package org.igoodwill.jtutorsb.controller;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -24,14 +25,18 @@ public class AppController {
 		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
 		templateEngine.process("label", ctx, response.getWriter());
-
 	}
 
 	@Autowired
 	private UsersService usersService;
 
 	@GetMapping({ "/", "/home" })
-	public String homePage(Map<String, Object> model) {
+	public String homePage(final HttpServletRequest request, final HttpServletResponse response,
+			final ServletContext servletContext, final TemplateEngine templateEngine, Locale locale,
+			Map<String, Object> model) throws Exception {
+		WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+
+		templateEngine.process("label", ctx, response.getWriter());
 		Users loggedInUser = usersService.getLoggedInUser();
 		model.put("isAdminOrTutor", loggedInUser.isAdmin() || loggedInUser.isTutor());
 		model.put("date", new Date());
