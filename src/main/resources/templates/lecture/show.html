@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
 <head lang="en">
 <title th:text="${lecture.name}"></title>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 <body>
-	<div></div>
+	<div layout:fragment="content"></div>
 	<script>
-		$("div").html("<span class='red'>Hello <b>Again</b></span>");
+		alert("Hello");
 	</script>
 </body>
 </html>
