@@ -8,11 +8,11 @@
 <body>
 	<div layout:fragment="content" id="lecture"></div>
 	<script th:inline="javascript">
-		/*<![CDATA[*/
-		/*[+
-		document.getElementById("lecture").innerHTML = [[${lecture.value}]];
-		+]*/
-		/*]]>*/
+	/*<![CDATA[*/
+
+    showLecture([[${lecture}]]);
+
+	/*]]>*/
 	</script>
 </body>
 </html>

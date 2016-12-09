@@ -3,3 +3,7 @@ $(document).ready(function() {
 		$('.row-offcanvas').toggleClass('active');
 	});
 });
+
+function showLecture(lecture) {
+	document.getElementById("lecture").innerHTML = lecture;
+}
