@@ -4,11 +4,12 @@
 	layout:decorator="layout">
 <head lang="en">
 <title th:text="${lecture.name}"></title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 <body>
-	<div id="lecture"></div>
+	<div layout:fragment="content"></div>
 	<script>
-		$('#lecture').html('some text');
+		$("div").html("<span class='red'>Hello <b>Again</b></span>");
 	</script>
 </body>
 </html>
