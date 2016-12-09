@@ -3,18 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head lang="en">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <title th:text="${lecture.name}"></title>
 </head>
 <body>
 	<div layout:fragment="content" id="lecture"></div>
-	<script th:inline="javascript">
-		/*<![CDATA[*/
-
+	<script>
 		$("#lecture").append("some text");
-
-		/*]]>*/
 	</script>
 </body>
 </html>
