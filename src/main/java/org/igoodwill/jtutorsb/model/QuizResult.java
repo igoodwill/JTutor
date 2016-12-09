@@ -26,7 +26,7 @@ public class QuizResult {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AnswerDTO> answers;
 
-	@OneToMany(orphanRemoval = true)
+	@OneToMany(orphanRemoval = false)
 	private List<Question> questions;
 
 	public QuizResult() {
