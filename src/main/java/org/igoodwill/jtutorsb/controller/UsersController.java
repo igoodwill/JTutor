@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -163,9 +162,10 @@ public class UsersController {
 	}
 
 	@GetMapping("/user/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, @ModelAttribute Users users) {
+	public String edit(final Model model, @PathVariable("id") Integer id) {
 		Users u;
 		Users loggedInUser = usersService.getLoggedInUser();
+
 		if (id == 0) {
 			id = loggedInUser.getId();
 		}
@@ -176,11 +176,14 @@ public class UsersController {
 		} else {
 			u = loggedInUser;
 		}
-		users.setId(u.getId());
-		users.setUsername(u.getUsername());
-		users.setEmail(u.getEmail());
-		users.setFirstName(u.getFirstName());
-		users.setLastName(u.getLastName());
+
+		u.setId(u.getId());
+		u.setUsername(u.getUsername());
+		u.setEmail(u.getEmail());
+		u.setFirstName(u.getFirstName());
+		u.setLastName(u.getLastName());
+
+		model.addAttribute("user", u);
 
 		return "/user/edit";
 	}
