@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -76,7 +77,8 @@ public class UsersController {
 			return "user/register-success";
 		} else {
 			log.error("User already exists: " + users.getUsername());
-			result.rejectValue("email", "error.alreadyExists", "This username or email already exists, please try to reset password instead.");
+			result.rejectValue("email", "error.alreadyExists",
+					"This username or email already exists, please try to reset password instead.");
 			return "user/register";
 		}
 	}
@@ -160,8 +162,8 @@ public class UsersController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/user/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, Users users) {
+	@GetMapping("/user/edit")
+	public String edit(@PathVariable("id") Integer id, @ModelAttribute Users users) {
 		Users u;
 		Users loggedInUser = usersService.getLoggedInUser();
 		if (id == 0) {
