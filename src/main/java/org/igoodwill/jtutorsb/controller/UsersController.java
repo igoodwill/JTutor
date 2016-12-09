@@ -76,7 +76,8 @@ public class UsersController {
 			return "user/register-success";
 		} else {
 			log.error("User already exists: " + users.getUsername());
-			result.rejectValue("email", "error.alreadyExists", "This username or email already exists, please try to reset password instead.");
+			result.rejectValue("email", "error.alreadyExists",
+					"This username or email already exists, please try to reset password instead.");
 			return "user/register";
 		}
 	}
@@ -161,9 +162,10 @@ public class UsersController {
 	}
 
 	@GetMapping("/user/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, Users users) {
+	public String edit(final Model model, @PathVariable("id") Integer id) {
 		Users u;
 		Users loggedInUser = usersService.getLoggedInUser();
+
 		if (id == 0) {
 			id = loggedInUser.getId();
 		}
@@ -174,13 +176,16 @@ public class UsersController {
 		} else {
 			u = loggedInUser;
 		}
-		users.setId(u.getId());
-		users.setUsername(u.getUsername());
-		users.setEmail(u.getEmail());
-		users.setFirstName(u.getFirstName());
-		users.setLastName(u.getLastName());
 
-		return "/user/edit";
+		u.setId(u.getId());
+		u.setUsername(u.getUsername());
+		u.setEmail(u.getEmail());
+		u.setFirstName(u.getFirstName());
+		u.setLastName(u.getLastName());
+
+		model.addAttribute("user", u);
+
+		return "user/edit";
 	}
 
 	@PostMapping("/user/edit")

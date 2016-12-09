@@ -6,7 +6,9 @@
 <title th:text="${lecture.name}"></title>
 </head>
 <body>
-	<div layout:fragment="content"
-		th:include="'fragments/lecture' + ${lecture.id}"></div>
+	<div layout:fragment="content"></div>
+	<script>
+		alert("Hello");
+	</script>
 </body>
 </html>
