@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
+<meta charset="UTF-8" />
 <title>JTutor</title>
 <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
@@ -19,24 +20,27 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar">
-					<li><a th:href="@{/}" href="/">Home</a></li>
-					<li><a th:href="@{/quiz/quests}" href="/quiz/quests">Quests</a></li>
-					<li><a th:href="@{/lecture/lectures}" href="/lecture/lectures">Lectures</a></li>
+					<li><a th:href="@{/}" href="/" th:text="#{home}"></a></li>
+					<li><a th:href="@{/quiz/quests}" href="/quiz/quests"
+						th:text="#{quests}"></a></li>
+					<li><a th:href="@{/lecture/lectures}" href="/lecture/lectures"
+						th:text="#{lectures}"></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#"><span
 							class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a th:href="@{/user/list}" href="user/list">User
-									List</a></li>
-							<li><a th:href="@{/quiz/results}" href="quiz/results">Your
-									Results</a></li>
-							<li><a th:href="@{/user/edit/0}" href="user/list">Edit
-									user</a></li>
-							<li><a th:href="@{/user/reset-password}" href="reset">Reset
-									Password</a></li>
-							<li><a th:href="@{/user/register}" href="register">Register</a></li>
+							<li><a th:href="@{/user/list}" href="user/list"
+								th:text="#{user_list}"></a></li>
+							<li><a th:href="@{/quiz/results}" href="quiz/results"
+								th:text="#{my_results}"></a></li>
+							<li><a th:href="@{/user/edit/0}" href="user/list"
+								th:text="#{edit_user}"></a></li>
+							<li><a th:href="@{/user/reset-password}" href="reset"
+								th:text="#{reset_password}"></a></li>
+							<li><a th:href="@{/user/register}" href="register"
+								th:text="#{register}"></a></li>
 						</ul></li>
 					<li><a th:href="@{/logout}" href="logout"><i
 							class="icon-chevron-left"></i><span
@@ -75,9 +79,8 @@
 	<footer>
 
 		<div id="styled" class="footer">
-			<p class="pull-right" th:if="${g_user}">
-				Logged in as: <span th:text="${g_user.email}">my email</span>
-			</p>
+			<p class="pull-right" th:if="${g_user}"
+				th:text="#{logged_in_as} + ': ' + ${g_user.email}"></p>
 			&copy; 2016 Igor Goodwill
 		</div>
 	</footer>

@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
-<head lang="en">
-<title>Error</title>
+<head>
+<title th:text="#{error}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
-	<div layout:fragment="content" class="alert alert-danger">Sorry,
-		you've not answered all questions.</div>
+	<div layout:fragment="content" class="alert alert-danger"
+		th:text="#{not_all_questions}"></div>
 </body>
 </html>
