@@ -2,13 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
-<head>
-<meta charset="UTF-8" />
+<head lang="en">
 <title>JTutor</title>
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1 th:text="#{label.welcome}"></h1>
+		<h1>Welcome to JTutor</h1>
 		<h3>
 			<a th:if="${isAdminOrTutor}" th:href="@{/quest/add}">Create/Update
 				Quests</a>
