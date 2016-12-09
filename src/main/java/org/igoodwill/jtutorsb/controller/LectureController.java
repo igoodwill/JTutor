@@ -1,5 +1,9 @@
 package org.igoodwill.jtutorsb.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import javax.validation.Valid;
 
 import org.igoodwill.jtutorsb.model.admin.Lecture;
@@ -31,7 +35,18 @@ public class LectureController {
 
 	@GetMapping("{lectureId}")
 	public String showLecture(final Model model, @PathVariable final Integer lectureId) {
-		model.addAttribute("lecture", lectureRepo.findOne(lectureId));
+		Lecture lecture = lectureRepo.findOne(lectureId);
+		model.addAttribute("lecture", lecture);
+
+		File file = new File(
+				getClass().getClassLoader().getResource("templates/fragments").getFile() + "/lecture.html");
+		try {
+			String content = lecture.getValue();
+
+			Files.write(file.toPath(), (content.getBytes()));
+		} catch (IOException e) {
+		}
+
 		return "lecture/show";
 	}
 

@@ -141,7 +141,7 @@ footer {
 	border: 3px solid #cccccc;
 	padding: 5px;
 	font-family: Tahoma, sans-serif;
-	resize: none;
+	resize: vertical;
 	overflow-x: hidden;
 }
 
