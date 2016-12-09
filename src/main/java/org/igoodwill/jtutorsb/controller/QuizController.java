@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.igoodwill.jtutorsb.model.AnswerDTO;
+import org.igoodwill.jtutorsb.model.QuizResult;
 import org.igoodwill.jtutorsb.model.UserAnswer;
 import org.igoodwill.jtutorsb.model.admin.Answer;
 import org.igoodwill.jtutorsb.model.admin.Quest;
@@ -11,6 +12,7 @@ import org.igoodwill.jtutorsb.model.admin.Question;
 import org.igoodwill.jtutorsb.repositories.AnswerDTORepository;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
 import org.igoodwill.jtutorsb.repositories.QuestionRepository;
+import org.igoodwill.jtutorsb.repositories.QuizResultRepository;
 import org.igoodwill.jtutorsb.repositories.UserAnswerRepository;
 import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class QuizController {
 	QuestRepository questRepo;
 
 	@Autowired
+	QuizResultRepository quizResultRepo;
+
+	@Autowired
 	UserAnswerRepository userAnswerRepo;
 
 	@Autowired
@@ -54,7 +59,7 @@ public class QuizController {
 
 		Integer userId = usersService.getLoggedInUser().getId();
 		if (questionNumber == 0) {
-			clearResultsByUserId(userId);
+			quizResultRepo.deleteAllByUserIdAndQuestId(userId, questId);
 			return "redirect:/quiz/" + questId + "/question/1";
 		}
 
@@ -126,7 +131,14 @@ public class QuizController {
 		}
 		answerDTORepo.save(answerForm);
 
-		if (questionNumber == quest.getQuestions().size()) {
+		List<Question> questions = quest.getQuestions();
+		if (questionNumber == questions.size()) {
+			List<AnswerDTO> answers = answerDTORepo.findAllByUserIdAndQuestId(userId, questId);
+			if (answers.size() != questRepo.findOne(questId).getQuestions().size()) {
+				return "quiz/error";
+			}
+			QuizResult quizResult = new QuizResult(userId, questId, answers, questions);
+			quizResultRepo.save(quizResult);
 			return "redirect:/quiz/" + questId + "/result";
 		}
 
@@ -137,15 +149,11 @@ public class QuizController {
 	public String showResult(@PathVariable final Integer questId, final Model model) {
 		Integer userId = usersService.getLoggedInUser().getId();
 
-		List<AnswerDTO> userAnswers = answerDTORepo.findAllByUserIdAndQuestId(userId, questId);
-		List<Question> questions = new ArrayList<>();
+		QuizResult result = quizResultRepo.findByUserIdAndQuestId(userId, questId);
+		List<AnswerDTO> userAnswers = result.getAnswers();
+		List<Question> questions = result.getQuestions();
 		List<Integer> wrongQuestionIds = new ArrayList<>();
 		int count = 0;
-
-		if (userAnswers.size() != questRepo.findOne(questId).getQuestions().size()) {
-			clearResultsByUserId(userId);
-			return "quiz/error";
-		}
 
 		for (AnswerDTO answerDTO : userAnswers) {
 			boolean flag = true;
@@ -182,10 +190,16 @@ public class QuizController {
 		model.addAttribute("userAnswers", userAnswers);
 		model.addAttribute("wrongQuestionIds", wrongQuestionIds);
 
-		return "quiz/results";
+		return "quiz/result";
 	}
 
-	public void clearResultsByUserId(Integer userId) {
-		answerDTORepo.deleteAllByUserId(userId);
+	@GetMapping("results")
+	public String showResults(@PathVariable final Integer questId, final Model model) {
+		Integer userId = usersService.getLoggedInUser().getId();
+		List<QuizResult> results = quizResultRepo.findAllByUserId(userId);
+
+		model.addAttribute("results", results);
+
+		return "quiz/results";
 	}
 }
