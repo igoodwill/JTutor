@@ -162,7 +162,7 @@ public class UsersController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/user/edit")
+	@GetMapping("/user/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, @ModelAttribute Users users) {
 		Users u;
 		Users loggedInUser = usersService.getLoggedInUser();
