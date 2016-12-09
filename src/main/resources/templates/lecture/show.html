@@ -5,7 +5,14 @@
 <head lang="en">
 <title th:text="${lecture.name}"></title>
 </head>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(document).ready(function() {
+		$("#lecture").load("/files/html/lecture.html");
+	});
+</script>
 <body>
-	<div layout:fragment="content" th:include="fragments/lecture"></div>
+	<div layout:fragment="content" id="lecture"></div>
 </body>
 </html>
