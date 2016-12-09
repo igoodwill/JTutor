@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1 th:text="#{label.welcome}"></h1>
+		<h1 th:text="#{welcome}"></h1>
 		<h3>
 			<a th:if="${isAdminOrTutor}" th:href="@{/quest/add}">Create/Update
 				Quests</a>
