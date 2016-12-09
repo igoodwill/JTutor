@@ -49,7 +49,6 @@ local.properties
 # Code Recommenders
 .recommenders/
 
-jtutor.sql
 /JTutorServer
 /target/
 /mvnw
@@ -57,5 +56,3 @@ jtutor.sql
 /myapp.log
 /.mvn/
 .DS_Store
-/mydb.mv.db
-/mydb.trace.db
