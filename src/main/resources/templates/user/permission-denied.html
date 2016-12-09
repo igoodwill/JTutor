@@ -3,12 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>Permission Denied</title>
+<title th:text="#{permission_denied}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
 	<div layout:fragment="content" class="alert alert-warning">
-		<h1>Permission Error</h1>
-		<h2>You do not have access to this section of the website</h2>
+		<h2 th:text="#{you_do_not_have_access}"></h2>
 	</div>
 </body>
 </html>

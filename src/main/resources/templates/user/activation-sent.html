@@ -3,14 +3,14 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>Re-send Activation</title>
+<title th:text="#{resend_activation}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="alert alert-info">
-			<p>Activation was just sent to your inbox.</p>
-			<p>Please check your email for instructions on how to activate
-				your account.</p>
+			<p th:text="#{activation_was_sent}"></p>
+			<p th:text="#{please_check_your_email_for_activation}"></p>
 		</div>
 	</div>
 </body>

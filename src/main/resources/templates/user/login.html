@@ -3,30 +3,30 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>LOGIN</title>
+<title th:text="#{login}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
 	<div layout:fragment="content">
 
 		<form class="form-signin" th:action="@{/login}" th:object="${users}"
 			action="/login" method="post">
-			<h2 class="form-signin-heading">Please sign in</h2>
+			<h2 class="form-signin-heading" th:text="#{please_sign_in}"></h2>
 
-			<div class="alert alert-danger" th:if="${param.error}">Email
-				and password is incorrect or your account is not activated, please
-				try again.</div>
+			<div class="alert alert-danger" th:if="${param.error}"
+				th:text="#{email_and_password_are_incorrect}"></div>
 			<input type="text" id="inputEmail" name="username"
-				class="form-control top" placeholder="Username or Email"
-				required="required" autofocus="autofocus" /> <input type="password"
-				id="inputPassword" name="password" class="form-control bottom"
-				placeholder="Password" required="required" />
+				class="form-control top"
+				placeholder="#{username} + ' or ' + #{email}" required="required"
+				autofocus="autofocus" /> <input type="password" id="inputPassword"
+				name="password" class="form-control bottom"
+				placeholder="#{password}" required="required" />
 			<div class="checkbox">
-				<label> <input type="checkbox" name="remember-me" />
-					Remember me
-				</label>
+				<label> <input type="checkbox" name="remember-me"
+					th:text="remember_me" /></label>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-				in</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"
+				th:text="#{sign_in}"></button>
 		</form>
 
 	</div>

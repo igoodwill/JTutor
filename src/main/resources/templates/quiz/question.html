@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
-<head lang="en">
+<head>
 <title th:text="${quest.name}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
 	<div layout:fragment="content" class="container">
@@ -45,13 +46,13 @@
 						</div>
 					</div>
 					<div>
-						<span class="text-danger" th:if="${isSomeAnswerChoosed}">Please,
-							choose at least 1 answer!</span>
+						<span class="text-danger" th:if="${isSomeAnswerChoosed}"
+							th:text="#{at_least_one_answer}"></span>
 					</div>
 					<button th:unless="${questionNumber} == ${questionsCount}"
-						type="submit" class="btn btn-default">Next</button>
+						type="submit" class="btn btn-default" th:text="#{next}"></button>
 					<button th:if="${questionNumber} == ${questionsCount}"
-						type="submit" class="btn btn-default">Finish</button>
+						type="submit" class="btn btn-default" th:text="#{finish}"></button>
 				</form>
 			</div>
 		</div>

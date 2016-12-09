@@ -3,40 +3,41 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>USER LIST</title>
+<title th:text="#{user_list}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1>USER LIST</h1>
+		<h1 th:text="#{user_list}"></h1>
 
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>User</th>
-						<th>Email</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Last Login</th>
-						<th th:if="${g_user.isAdmin()}">Delete</th>
-						<th th:if="${g_user.isAdmin()}">Edit</th>
-						<th th:if="${g_user.isAdmin()}">Login as</th>
+						<th th:text="#{user}"></th>
+						<th th:text="#{email}"></th>
+						<th th:text="#{first_name}"></th>
+						<th th:text="#{last_name}"></th>
+						<th th:text="#{last_login}"></th>
+						<th th:if="${g_user.isAdmin()}" th:text="#{delete}"></th>
+						<th th:if="${g_user.isAdmin()}" th:text="#{edit}"></th>
+						<th th:if="${g_user.isAdmin()}" th:text="#{login_as}"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="user : ${users}">
-						<td th:text="${user.username}">user</td>
-						<td th:text="${user.email}">email</td>
-						<td th:text="${user.firstName}">first name</td>
-						<td th:text="${user.lastName}">last name</td>
-						<td th:text="${user.lastLogin}">last login</td>
+						<td th:text="${user.username}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.firstName}"></td>
+						<td th:text="${user.lastName}"></td>
+						<td th:text="${user.lastLogin}"></td>
 						<td th:if="${g_user.isAdmin()}"><a
-							th:href="@{/user/delete(id=${user.id})}">Delete</a></td>
+							th:href="@{/user/delete(id=${user.id})}" th:text="#{delete}"></a></td>
 						<td th:if="${g_user.isAdmin()}"><a
-							th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a></td>
+							th:href="@{/user/edit/{id}(id=${user.id})}" th:text="#{edit}"></a></td>
 						<td th:if="${g_user.isAdmin()}"><a
-							th:href="@{/user/autologin(username=${user.username})}">Login
-								As</a></td>
+							th:href="@{/user/autologin(username=${user.username})}"
+							th:text="#{login_as}"></a></td>
 					</tr>
 				</tbody>
 			</table>

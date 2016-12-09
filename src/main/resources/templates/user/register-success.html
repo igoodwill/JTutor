@@ -3,12 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>REGISTER SUCCESS</title>
+<title th:text="#{register}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="alert alert-info">Registration was successful,
-			please activate your account by checking your inbox &amp; spam.</div>
+		<div class="alert alert-info" th:text="#{registration_was_successful}"></div>
 	</div>
 </body>
 </html>

@@ -3,33 +3,34 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>Edit User</title>
+<title th:text="#{edit_user}"></title>
+<meta charset="UTF-8" />
 </head>
 <body>
 	<div layout:fragment="content">
 		<form class="form-signin" th:action="@{/user/edit}"
 			th:object="${user}" method="post">
-			<h2 class="form-signin-heading">
-				Edit <span th:text="${user.username}"></span> account
-			</h2>
+			<h2 class="form-signin-heading"
+				th:text="#{edit} + ' ' + ${user.username}"></h2>
 
 			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 				class="alert alert-danger">Email error</div>
 
 			<input type="text" th:field="*{email}" class="form-control top"
-				placeholder="Email" required="required" autofocus="autofocus" /> <input
-				type="text" th:field="*{firstName}" class="form-control middle"
-				placeholder="First Name" /> <input type="text"
-				th:field="*{lastName}" class="form-control bottom"
-				placeholder="Last Name" /> <input type="hidden"
+				placeholder="#{email}" required="required" autofocus="autofocus" />
+			<input type="text" th:field="*{firstName}"
+				class="form-control middle" placeholder="#{first_name}" /> <input
+				type="text" th:field="*{lastName}" class="form-control bottom"
+				placeholder="#{last_name}" /> <input type="hidden"
 				th:field="*{username}" /> <input type="hidden" th:field="*{id}" />
 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"
+				th:text="#{save}"></button>
 
 			<p class="alert alert-success"
-				th:if="${#httpServletRequest.getParameter('updated')}">You
-				changes have been saved</p>
-			<a th:href="@{/user/reset-password}">Change Password</a>
+				th:if="${#httpServletRequest.getParameter('updated')}"
+				th:text="#{changes_had_been_saved}"></p>
+			<a th:href="@{/user/reset-password}" th:text="#{change_password}"></a>
 		</form>
 	</div>
 </body>
