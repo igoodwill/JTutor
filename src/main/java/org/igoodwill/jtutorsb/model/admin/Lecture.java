@@ -28,7 +28,7 @@ public class Lecture {
 	private String description;
 
 	@NotNull
-	@Size(min = 16, max = 8191)
+	@Size(min = 16, max = 64000)
 	@Column(name = "lecture_value", nullable = false)
 	private String value;
 

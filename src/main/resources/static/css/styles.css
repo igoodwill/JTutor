@@ -137,12 +137,11 @@ footer {
 }
 
 #styled textarea {
-	width: 946px;
 	height: 150px;
 	border: 3px solid #cccccc;
 	padding: 5px;
 	font-family: Tahoma, sans-serif;
-	resize: none;
+	resize: vertical;
 	overflow-x: hidden;
 }
 

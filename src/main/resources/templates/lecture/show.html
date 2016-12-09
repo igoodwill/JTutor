@@ -6,8 +6,7 @@
 <title th:text="${lecture.name}"></title>
 </head>
 <body>
-	<div layout:fragment="content">
-		<pre th:text="${lecture.value}"></pre>
-	</div>
+	<div layout:fragment="content"
+		th:include="'fragments/lecture' + ${lecture.id}"></div>
 </body>
 </html>
