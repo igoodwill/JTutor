@@ -194,7 +194,7 @@ public class QuizController {
 	}
 
 	@GetMapping("results")
-	public String showResults(@PathVariable final Integer questId, final Model model) {
+	public String showResults(final Model model) {
 		Integer userId = usersService.getLoggedInUser().getId();
 		List<QuizResult> results = quizResultRepo.findAllByUserId(userId);
 
