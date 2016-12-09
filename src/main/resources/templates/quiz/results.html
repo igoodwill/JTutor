@@ -17,7 +17,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="result : ${results}">
-						<td><a th:text="${result.name}"
+						<td><a th:text="${questRepo.findOne(result.questId).name}"
 							th:href="@{'/quiz/' + ${result.questId} + '/result'}"></a></td>
 					</tr>
 				</tbody>

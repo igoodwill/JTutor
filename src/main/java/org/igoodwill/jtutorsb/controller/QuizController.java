@@ -199,6 +199,7 @@ public class QuizController {
 		List<QuizResult> results = quizResultRepo.findAllByUserId(userId);
 
 		model.addAttribute("results", results);
+		model.addAttribute("questRepo", questRepo);
 
 		return "quiz/results";
 	}
