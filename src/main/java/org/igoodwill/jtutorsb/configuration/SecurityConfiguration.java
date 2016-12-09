@@ -26,12 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/webjars/**", "/js/**").permitAll().antMatchers("/user/register")
 				.permitAll().antMatchers("/user/activate").permitAll().antMatchers("/user/activation-send").permitAll()
-				.antMatchers("/user/reset-password").permitAll().antMatchers("/user/reset-password-change").permitAll()
-				.antMatchers("/user/autologin").access("hasRole('ROLE_ADMIN')").antMatchers("/user/delete")
-				.access("hasRole('ROLE_ADMIN')").antMatchers("/quest/**")
-				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')").anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").failureUrl("/login?error").permitAll().and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and()
+				.antMatchers("/user/reset-password").permitAll().antMatchers("/user/edit").permitAll()
+				.antMatchers("/user/reset-password-change").permitAll().antMatchers("/user/autologin")
+				.access("hasRole('ROLE_ADMIN')").antMatchers("/user/delete").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/quest/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')").anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").failureUrl("/login?error").permitAll().and()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and()
 				.rememberMe().key(applicationSecret).tokenValiditySeconds(31536000);
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
