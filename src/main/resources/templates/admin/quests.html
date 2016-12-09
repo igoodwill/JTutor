@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>Quests Form</title>
+<title th:text="#{questions}"></title>
 <meta charset="UTF-8" />
 </head>
 <body>
@@ -24,7 +24,8 @@
 						<td><a th:text="${quest.name}"
 							th:href="@{'/quest/' + ${quest.id + '/edit'}}"></a></td>
 						<td th:text="${quest.description}"></td>
-						<td><a th:href="@{'/quest/' + ${quest.id + '/questions'}}"></a></td>
+						<td><a th:href="@{'/quest/' + ${quest.id + '/questions'}}"
+							th:text="#{questions}"></a></td>
 						<td><a th:href="@{'/quest/' + ${quest.id + '/delete/'}}"
 							onclick="return confirm('Are you sure you want to delete\nquest?');"
 							th:text="#{delete}"></a></td>
