@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.igoodwill.jtutorsb.model.admin.Question;
-
 @Entity
 @Table(name = "quiz_result")
 public class QuizResult {
@@ -26,18 +24,14 @@ public class QuizResult {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AnswerDTO> answers;
 
-	@OneToMany(orphanRemoval = false)
-	private List<Question> questions;
-
 	public QuizResult() {
 	}
 
-	public QuizResult(Integer userId, Integer questId, List<AnswerDTO> answers, List<Question> questions) {
+	public QuizResult(Integer userId, Integer questId, List<AnswerDTO> answers) {
 		super();
 		this.userId = userId;
 		this.questId = questId;
 		this.answers = answers;
-		this.questions = questions;
 	}
 
 	public Integer getId() {
@@ -72,14 +66,6 @@ public class QuizResult {
 		this.answers = answers;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,7 +73,6 @@ public class QuizResult {
 		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((questId == null) ? 0 : questId.hashCode());
-		result = prime * result + ((questions == null) ? 0 : questions.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
@@ -115,11 +100,6 @@ public class QuizResult {
 			if (other.questId != null)
 				return false;
 		} else if (!questId.equals(other.questId))
-			return false;
-		if (questions == null) {
-			if (other.questions != null)
-				return false;
-		} else if (!questions.equals(other.questions))
 			return false;
 		if (userId == null) {
 			if (other.userId != null)

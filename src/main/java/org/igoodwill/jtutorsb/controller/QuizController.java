@@ -137,7 +137,7 @@ public class QuizController {
 			if (answers.size() != questRepo.findOne(questId).getQuestions().size()) {
 				return "quiz/error";
 			}
-			QuizResult quizResult = new QuizResult(userId, questId, answers, questions);
+			QuizResult quizResult = new QuizResult(userId, questId, answers);
 			quizResultRepo.save(quizResult);
 			return "redirect:/quiz/" + questId + "/result";
 		}
@@ -151,7 +151,7 @@ public class QuizController {
 
 		QuizResult result = quizResultRepo.findByUserIdAndQuestId(userId, questId);
 		List<AnswerDTO> userAnswers = result.getAnswers();
-		List<Question> questions = result.getQuestions();
+		List<Question> questions = new ArrayList<>();
 		List<Integer> wrongQuestionIds = new ArrayList<>();
 		int count = 0;
 
