@@ -7,14 +7,14 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1>Welcome to JTutor</h1>
+		<h1 th:text="#{label.welcome}"></h1>
 		<h3>
-			<a th:if="${isAdminOrTutor}" th:href="@{/quest/add}">Create/Update
-				Quests</a>
+			<a th:if="${isAdminOrTutor}" th:href="@{/quest/add}"
+				th:text="#{label.create_or_update_quests}"></a>
 		</h3>
 		<h3>
-			<a th:if="${isAdminOrTutor}" th:href="@{/lecture/add}">Create/Update
-				Lectures</a>
+			<a th:if="${isAdminOrTutor}" th:href="@{/lecture/add}"
+				th:text="#{label.create_or_update_lectures}"></a>
 		</h3>
 		<div id="created" th:text="${#dates.format(date)}">October 25,
 			2016</div>
