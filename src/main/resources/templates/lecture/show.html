@@ -10,7 +10,9 @@
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 
-		document.getElementById("lecture").innerHTML = "home.html";
+		var theDiv = document.getElementById("lecture");
+		var content = document.createTextNode(/*[[${lecture.value}]]*/);
+		theDiv.appendChild(content);
 
 		/*]]>*/
 	</script>
