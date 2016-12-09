@@ -38,8 +38,8 @@ public class LectureController {
 		Lecture lecture = lectureRepo.findOne(lectureId);
 		model.addAttribute("lecture", lecture);
 
-		File file = new File(getClass().getClassLoader().getResource("templates/fragments").getFile() + "/lecture"
-				+ lecture.getId() + ".html");
+		File file = new File(
+				getClass().getClassLoader().getResource("templates/fragments").getFile() + "/lecture.html");
 		try {
 			String content = lecture.getValue();
 
