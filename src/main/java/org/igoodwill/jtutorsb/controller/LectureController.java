@@ -38,14 +38,6 @@ public class LectureController {
 		Lecture lecture = lectureRepo.findOne(lectureId);
 		model.addAttribute("lecture", lecture);
 
-		File file = new File("/files/html/lecture.html");
-		try {
-			String content = lecture.getValue();
-
-			Files.write(file.toPath(), (content.getBytes()));
-		} catch (IOException e) {
-		}
-
 		return "lecture/show";
 	}
 
