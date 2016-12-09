@@ -49,7 +49,6 @@ local.properties
 # Code Recommenders
 .recommenders/
 
-jtutor.sql
 /target/
 /mvnw
 /mvnw.cmd
