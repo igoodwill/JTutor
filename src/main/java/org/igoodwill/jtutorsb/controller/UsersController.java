@@ -188,8 +188,11 @@ public class UsersController {
 		return "user/edit";
 	}
 
-	@PostMapping("/user/edit")
-	public String editPost(@Valid Users users, BindingResult result) {
+	@PostMapping("/user/edit/{id}")
+	public String editPost(@Valid Users users, BindingResult result, @PathVariable("id") final Integer id) {
+		users.setId(id);
+		users.setUsername(usersService.getLoggedInUser().getUsername());
+
 		if (result.hasFieldErrors("email")) {
 			return "/user/edit";
 		}
