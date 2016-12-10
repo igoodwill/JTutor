@@ -33,17 +33,10 @@
 						th:each="answer, answerStat : *{answers}">
 						<input type="hidden"
 							th:field="*{answers[__${answerStat.index}__].value}" />
-						<div class="checkbox" th:if="${isMultipleAnswer}">
+						<div class="checkbox">
 							<input th:id="${answerStat.index}" type="checkbox"
 								th:field="*{answers[__${answerStat.index}__].state}" /> <label
 								th:for="${answerStat.index}" th:text="${answer.value}"></label>
-						</div>
-						<div class="radio" th:unless="${isMultipleAnswer}">
-							<label><input id="${answerStat.index}" type="radio"
-								name="group"
-								th:value="not *{answers[__${answerStat.index}__].state}"
-								th:field="*{answers[__${answerStat.index}__].state}" /> <span
-								th:text="${answer.value}"></span></label>
 						</div>
 					</div>
 					<div>

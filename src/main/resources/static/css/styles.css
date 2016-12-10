@@ -145,7 +145,7 @@ footer {
 	overflow-x: hidden;
 }
 
-#styled h1, h2, h3, a, p, input, label, button, div {
+#styled h1, h2, h3, a, p, input, label, button, div, span {
 	font-family: Tahoma, sans-serif;
 }
 

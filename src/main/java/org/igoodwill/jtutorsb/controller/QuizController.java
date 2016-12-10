@@ -96,7 +96,6 @@ public class QuizController {
 		}
 
 		model.addAttribute("numbersAfter", numbersAfter);
-		model.addAttribute("isMultipleAnswer", currentQuestion.getValidAnswersCount() > 1);
 
 		return "quiz/question";
 	}
