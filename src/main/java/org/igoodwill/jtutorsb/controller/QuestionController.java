@@ -37,6 +37,9 @@ public class QuestionController {
 		Quest quest = questRepo.findOne(questId);
 		model.addAttribute("quest", quest);
 		model.addAttribute("questions", quest.getQuestions());
+		model.addAttribute("usersService", usersService);
+		model.addAttribute("isUserHasAccess", true);
+
 		if (!model.containsAttribute("questionForm")) {
 			model.addAttribute("questionForm", new Question());
 		}
