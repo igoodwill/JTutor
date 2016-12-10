@@ -69,6 +69,7 @@ public class LectureController {
 
 		model.addAttribute("lectures", lectureRepo.findAll());
 		model.addAttribute("lectureForm", lectureRepo.findOne(lectureId));
+		model.addAttribute("usersService", usersService);
 		model.addAttribute("isUserHasAccess", usersService.getLoggedInUser().isAdmin()
 				|| lectureRepo.findOne(lectureId).getCreatorId().equals(usersService.getLoggedInUser().getId()));
 

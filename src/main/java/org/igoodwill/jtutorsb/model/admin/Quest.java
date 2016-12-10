@@ -27,8 +27,7 @@ public class Quest {
 	@Column(name = "quest_name", nullable = false, unique = true)
 	private String name;
 
-	@NotNull
-	@Column(name = "quest_creator_id", nullable = false)
+	@Column(name = "quest_creator_id")
 	private Integer creatorId;
 
 	@NotNull
