@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -30,8 +29,8 @@ public class LectureController {
 	}
 
 	@GetMapping("/tutorial")
-	public String showLecture(final Model model, @RequestBody final Integer id) {
-		Lecture lecture = lectureRepo.findOne(id);
+	public String showLecture(final Model model, @RequestParam("id") final Integer lectureId) {
+		Lecture lecture = lectureRepo.findOne(lectureId);
 
 		if (lecture == null) {
 			return "redirect:/home";
@@ -40,6 +39,11 @@ public class LectureController {
 		model.addAttribute("lecture", lecture);
 
 		return "lecture/show";
+	}
+
+	@GetMapping("/tutorial")
+	public String redirectToHome() {
+		return "redirect:/home";
 	}
 
 	// ADMIN
