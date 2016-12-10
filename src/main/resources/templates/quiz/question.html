@@ -40,8 +40,8 @@
 						</div>
 						<div class="radio" th:unless="${isMultipleAnswer}">
 							<input th:id="${answerStat.index}" type="radio" name="group"
-								th:field="*{answers[__${answerStat.index}__].state}" /> <label
-								th:for="${answerStat.index}" th:text="${answer.value}"></label>
+								value="" th:field="*{answers[__${answerStat.index}__].state}" />
+							<label th:for="${answerStat.index}" th:text="${answer.value}"></label>
 						</div>
 					</div>
 					<div>
