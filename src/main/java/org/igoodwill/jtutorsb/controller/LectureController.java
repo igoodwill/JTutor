@@ -28,7 +28,7 @@ public class LectureController {
 		return "lecture/lectures";
 	}
 
-	@GetMapping("/tutorial/}")
+	@GetMapping("/tutorial")
 	public String showLecture(final Model model, @RequestParam("id") final Integer lectureId) {
 		Lecture lecture = lectureRepo.findOne(lectureId);
 		model.addAttribute("lecture", lecture);
