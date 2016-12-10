@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.igoodwill.jtutorsb.model.admin.Quest;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
+import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class QuestController {
 
 	@Autowired
+	private UsersService usersService;
+
+	@Autowired
 	QuestRepository repo;
 
 	@GetMapping("add")
@@ -30,6 +34,8 @@ public class QuestController {
 
 	@PostMapping("add")
 	public String questSubmit(@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result) {
+
+		questForm.setCreatorId(usersService.getLoggedInUser().getId());
 
 		if (result.hasErrors()) {
 			return "admin/quests";

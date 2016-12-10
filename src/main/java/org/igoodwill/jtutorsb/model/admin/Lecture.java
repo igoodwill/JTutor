@@ -23,6 +23,10 @@ public class Lecture {
 	private String name;
 
 	@NotNull
+	@Column(name = "lecture_creator_id", nullable = false)
+	private Integer creatorId;
+
+	@NotNull
 	@Size(min = 6, max = 64)
 	@Column(name = "lecture_description", nullable = false)
 	private String description;
@@ -48,6 +52,14 @@ public class Lecture {
 		this.name = name;
 	}
 
+	public Integer getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Integer creatorId) {
+		this.creatorId = creatorId;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -68,6 +80,7 @@ public class Lecture {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((creatorId == null) ? 0 : creatorId.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -84,6 +97,11 @@ public class Lecture {
 		if (getClass() != obj.getClass())
 			return false;
 		Lecture other = (Lecture) obj;
+		if (creatorId == null) {
+			if (other.creatorId != null)
+				return false;
+		} else if (!creatorId.equals(other.creatorId))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;

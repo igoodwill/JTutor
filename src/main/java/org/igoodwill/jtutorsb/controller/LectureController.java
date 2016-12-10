@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.igoodwill.jtutorsb.model.admin.Lecture;
 import org.igoodwill.jtutorsb.repositories.LectureRepository;
+import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LectureController {
+
+	@Autowired
+	private UsersService usersService;
 
 	@Autowired
 	LectureRepository lectureRepo;
@@ -41,12 +45,15 @@ public class LectureController {
 	public String lectureForm(final Model model) {
 		model.addAttribute("lectures", lectureRepo.findAll());
 		model.addAttribute("lectureForm", new Lecture());
+		model.addAttribute("usersService", usersService);
 		return "admin/lectures";
 	}
 
 	@PostMapping("/lecture/add")
 	public String lectureSubmit(@Valid @ModelAttribute("lectureForm") final Lecture lectureForm,
 			final BindingResult result) {
+
+		lectureForm.setCreatorId(usersService.getLoggedInUser().getId());
 
 		if (result.hasErrors()) {
 			return "admin/lectures";

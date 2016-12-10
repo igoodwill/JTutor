@@ -18,101 +18,119 @@ import javax.validation.constraints.Size;
 @Table(name = "quest")
 public class Quest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @NotNull
-    @Size(min = 6, max = 32)
-    @Column(name = "quest_name", nullable = false, unique = true)
-    private String name;
+	@NotNull
+	@Size(min = 6, max = 32)
+	@Column(name = "quest_name", nullable = false, unique = true)
+	private String name;
 
-    @NotNull
-    @Size(min = 6, max = 64)
-    @Column(name = "quest_description", nullable = false)
-    private String description;
+	@NotNull
+	@Column(name = "quest_creator_id", nullable = false)
+	private Integer creatorId;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "quest_id")
-    private List<Question> questions = new ArrayList<>();
+	@NotNull
+	@Size(min = 6, max = 64)
+	@Column(name = "quest_description", nullable = false)
+	private String description;
 
-    public Integer getId() {
-	return id;
-    }
+	@OneToMany(orphanRemoval = true)
+	@JoinColumn(name = "quest_id")
+	private List<Question> questions = new ArrayList<>();
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-	return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-	this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getDescription() {
-	return description;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDescription(String description) {
-	this.description = description;
-    }
+	public Integer getCreatorId() {
+		return creatorId;
+	}
 
-    public List<Question> getQuestions() {
-	return questions;
-    }
+	public void setCreatorId(Integer creatorId) {
+		this.creatorId = creatorId;
+	}
 
-    public void setQuestions(List<Question> questions) {
-	this.questions = questions;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    @Override
-    public String toString() {
-	return name;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((description == null) ? 0 : description.hashCode());
-	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	result = prime * result + ((name == null) ? 0 : name.hashCode());
-	result = prime * result + ((questions == null) ? 0 : questions.hashCode());
-	return result;
-    }
+	public List<Question> getQuestions() {
+		return questions;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Quest other = (Quest) obj;
-	if (description == null) {
-	    if (other.description != null)
-		return false;
-	} else if (!description.equals(other.description))
-	    return false;
-	if (id == null) {
-	    if (other.id != null)
-		return false;
-	} else if (!id.equals(other.id))
-	    return false;
-	if (name == null) {
-	    if (other.name != null)
-		return false;
-	} else if (!name.equals(other.name))
-	    return false;
-	if (questions == null) {
-	    if (other.questions != null)
-		return false;
-	} else if (!questions.equals(other.questions))
-	    return false;
-	return true;
-    }
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((creatorId == null) ? 0 : creatorId.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((questions == null) ? 0 : questions.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Quest other = (Quest) obj;
+		if (creatorId == null) {
+			if (other.creatorId != null)
+				return false;
+		} else if (!creatorId.equals(other.creatorId))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (questions == null) {
+			if (other.questions != null)
+				return false;
+		} else if (!questions.equals(other.questions))
+			return false;
+		return true;
+	}
 }

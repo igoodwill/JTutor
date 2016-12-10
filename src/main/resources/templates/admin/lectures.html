@@ -24,6 +24,7 @@
 							th:href="@{'/lecture/' + ${lecture.id + '/edit'}}"></a></td>
 						<td th:text="${lecture.description}"></td>
 						<td><a th:href="@{'/lecture/' + ${lecture.id + '/delete/'}}"
+							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(lecture.getCreatorId())}"
 							onclick="return confirm('Are you sure you want to delete\nlecture?');"
 							th:text="#{delete}"></a></td>
 					</tr>
