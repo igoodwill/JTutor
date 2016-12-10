@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<form class="form-signin" th:action="@{/user/edit/${id}}"
+		<form class="form-signin" th:action="@{'/user/edit/' + ${id}}"
 			th:object="${user}" method="post">
 			<h2 class="form-signin-heading"
 				th:text="#{edit} + ' ' + ${user.username}"></h2>
