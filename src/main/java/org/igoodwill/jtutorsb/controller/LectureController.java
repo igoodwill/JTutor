@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.igoodwill.jtutorsb.model.admin.Lecture;
 import org.igoodwill.jtutorsb.repositories.LectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LectureController {
@@ -29,21 +29,16 @@ public class LectureController {
 	}
 
 	@GetMapping("/tutorial")
-	public String showLecture(final Model model, @RequestParam("id") final Integer lectureId) {
+	public String showLecture(final Model model, @Param("id") final Integer lectureId) {
 		Lecture lecture = lectureRepo.findOne(lectureId);
 
 		if (lecture == null) {
-			return "redirect:/home";
+			return "redirect:/tutorial/lectures";
 		}
 
 		model.addAttribute("lecture", lecture);
 
 		return "lecture/show";
-	}
-
-	@GetMapping("/tutorial")
-	public String redirectToHome() {
-		return "redirect:/home";
 	}
 
 	// ADMIN
