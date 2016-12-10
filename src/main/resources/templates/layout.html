@@ -16,12 +16,10 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" th:href="@{/}" href="/">JTutor</a>
+				<a class="navbar-brand" th:href="@{/}" href="/">JTutor <span class="glyphicon glyphicon-home"></span></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar">
-					<li><a th:href="@{/}" href="/"><span
-							class="glyphicon glyphicon-home"></span></a></li>
 					<li><a th:href="@{/quiz/quests}" href="/quiz/quests"
 						th:text="#{quests}"></a></li>
 					<li><a th:href="@{/tutorial/lectures}"
