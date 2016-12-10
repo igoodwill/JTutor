@@ -69,6 +69,10 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
