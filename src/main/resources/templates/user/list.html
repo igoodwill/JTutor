@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
@@ -19,9 +20,9 @@
 						<th th:text="#{first_name}"></th>
 						<th th:text="#{last_name}"></th>
 						<th th:text="#{last_login}"></th>
-						<th th:if="${g_user.isAdmin()}" th:text="#{delete}"></th>
-						<th th:if="${g_user.isAdmin()}" th:text="#{edit}"></th>
-						<th th:if="${g_user.isAdmin()}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{edit}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,11 +32,11 @@
 						<td th:text="${user.firstName}"></td>
 						<td th:text="${user.lastName}"></td>
 						<td th:text="${user.lastLogin}"></td>
-						<td th:if="${g_user.isAdmin()}"><a
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a
 							th:href="@{/user/delete(id=${user.id})}" th:text="#{delete}"></a></td>
-						<td th:if="${g_user.isAdmin()}"><a
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a
 							th:href="@{/user/edit/{id}(id=${user.id})}" th:text="#{edit}"></a></td>
-						<td th:if="${g_user.isAdmin()}"><a
+						<td sec:authorize="hasRole('ROLE_ADMIN')"><a
 							th:href="@{/user/autologin(username=${user.username})}"
 							th:text="#{login_as}"></a></td>
 					</tr>
