@@ -66,6 +66,9 @@ public class UsersController {
 			return "user/register";
 		}
 
+		users.setId(null);
+		users.setRole("ROLE_USER");
+
 		Users registeredUser = usersService.register(users);
 		if (registeredUser != null) {
 			mailService.sendNewRegistration(users.getEmail(), registeredUser.getToken());
