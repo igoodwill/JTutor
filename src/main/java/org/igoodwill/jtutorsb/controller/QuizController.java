@@ -94,7 +94,9 @@ public class QuizController {
 				numbersAfter.add(i);
 			}
 		}
+
 		model.addAttribute("numbersAfter", numbersAfter);
+		model.addAttribute("isMultipleAnswer", currentQuestion.getValidAnswersCount() > 1);
 
 		return "quiz/question";
 	}
