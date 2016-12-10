@@ -125,6 +125,10 @@ public class QuizController {
 		answerForm.setQuestId(questId);
 		answerForm.setQuestionId(questionId);
 
+		if (answerDTORepo.findByUserIdAndQuestionId(userId, questionId) != null) {
+			answerDTORepo.deleteAllByUserIdAndQuestionId(userId, questionId);
+		}
+
 		for (UserAnswer userAnswer : answerForm.getAnswers()) {
 			userAnswerRepo.save(userAnswer);
 		}
