@@ -33,7 +33,9 @@
 						<td th:text="${user.lastName}"></td>
 						<td th:text="${user.lastLogin}"></td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')"><a
-							th:href="@{/user/delete(id=${user.id})}" th:text="#{delete}"></a></td>
+							th:href="@{/user/delete(id=${user.id})}"
+							onclick="return confirm('Are you sure you want to delete\nlecture?');"
+							th:text="#{delete}"></a></td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')"><a
 							th:href="@{/user/edit/{id}(id=${user.id})}" th:text="#{edit}"></a></td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')"><a
