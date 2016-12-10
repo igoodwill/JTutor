@@ -22,8 +22,7 @@ public class Lecture {
 	@Column(name = "lecture_name", nullable = false, unique = true)
 	private String name;
 
-	@NotNull
-	@Column(name = "lecture_creator_id", nullable = false)
+	@Column(name = "lecture_creator_id")
 	private Integer creatorId;
 
 	@NotNull
