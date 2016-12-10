@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LectureController {
@@ -27,8 +28,8 @@ public class LectureController {
 		return "lecture/lectures";
 	}
 
-	@GetMapping("/tutorial/{lectureId}")
-	public String showLecture(final Model model, @PathVariable final Integer lectureId) {
+	@GetMapping("/tutorial/}")
+	public String showLecture(final Model model, @RequestParam("id") final Integer lectureId) {
 		Lecture lecture = lectureRepo.findOne(lectureId);
 		model.addAttribute("lecture", lecture);
 
