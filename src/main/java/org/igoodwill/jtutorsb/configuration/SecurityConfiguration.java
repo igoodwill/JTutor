@@ -30,9 +30,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/user/autologin").access("hasRole('ROLE_ADMIN')").antMatchers("/user/delete")
 				.access("hasRole('ROLE_ADMIN')").antMatchers("/quest/**")
 				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')").antMatchers("/lecture/**")
-				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')").anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").failureUrl("/login?error").permitAll().and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and()
+				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')").anyRequest().authenticated().and()
+				.antMatcher("/?lang=ua").formLogin().loginPage("/login").failureUrl("/login?error").permitAll().and()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and()
 				.rememberMe().key(applicationSecret).tokenValiditySeconds(31536000);
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
