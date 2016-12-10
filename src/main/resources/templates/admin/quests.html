@@ -29,13 +29,9 @@
 							th:unless="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"
 							th:text="${quest.name}"></td>
 						<td th:text="${quest.description}"></td>
-						<td
-							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"><a
-							th:href="@{'/quest/' + ${quest.id + '/questions'}}"
+						<td><a th:href="@{'/quest/' + ${quest.id + '/questions'}}"
+							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"
 							th:text="#{questions}"></a></td>
-						<td
-							th:unless="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"
-							th:text="#{questions}"></td>
 						<td><a th:href="@{'/quest/' + ${quest.id + '/delete/'}}"
 							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"
 							onclick="return confirm('Are you sure you want to delete\nquest?');"
