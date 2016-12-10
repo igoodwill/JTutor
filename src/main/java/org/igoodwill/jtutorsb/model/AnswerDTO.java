@@ -18,7 +18,8 @@ public class AnswerDTO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REMOVE,
+			CascadeType.REFRESH }, orphanRemoval = true)
 	private List<UserAnswer> answers;
 
 	private Integer userId;
