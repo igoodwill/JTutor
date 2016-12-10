@@ -32,8 +32,6 @@
 					<div class="container form-group"
 						th:each="answer, answerStat : *{answers}">
 						<input type="hidden"
-							th:field="*{answers[__${answerStat.index}__].id}" /> <input
-							type="hidden"
 							th:field="*{answers[__${answerStat.index}__].value}" />
 						<div class="checkbox">
 							<input th:id="${answerStat.index}" type="checkbox"
