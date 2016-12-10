@@ -18,11 +18,6 @@ public class AppController {
 	@GetMapping({ "/", "/home" })
 	public String homePage(Map<String, Object> model) {
 		Users loggedInUser = usersService.getLoggedInUser();
-
-		if (loggedInUser == null) {
-			return "redirect:/login";
-		}
-
 		model.put("isAdminOrTutor", loggedInUser.isAdmin() || loggedInUser.isTutor());
 		model.put("date", new Date());
 		return "home";
