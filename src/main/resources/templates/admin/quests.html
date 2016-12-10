@@ -57,10 +57,8 @@
 						<p class="label label-danger"
 							th:if="${#fields.hasErrors('description')}"
 							th:errors="*{description}">Description Error</p>
+						<button type="submit" class="btn btn-primary" th:text="#{submit}"></button>
 					</div>
-				</div>
-				<div>
-					<button type="submit" class="btn btn-primary" th:text="#{submit}"></button>
 				</div>
 			</form>
 		</div>

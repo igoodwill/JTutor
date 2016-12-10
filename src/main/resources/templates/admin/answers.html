@@ -61,10 +61,8 @@
 						<p class="label label-danger"
 							th:if="${#fields.hasErrors('valid')}" th:errors="*{valid}">Valid
 							Error</p>
+						<button type="submit" class="btn btn-primary" th:text="#{submit}"></button>
 					</div>
-				</div>
-				<div>
-					<button type="submit" class="btn btn-primary" th:text="#{submit}"></button>
 				</div>
 			</form>
 		</div>
