@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LectureController {
@@ -28,14 +27,9 @@ public class LectureController {
 		return "lecture/lectures";
 	}
 
-	@GetMapping("/tutorial")
-	public String showLecture(final Model model, @RequestParam("id") final Integer lectureId) {
+	@GetMapping("/tutorial/z}")
+	public String showLecture(final Model model, @PathVariable final Integer lectureId) {
 		Lecture lecture = lectureRepo.findOne(lectureId);
-
-		if (lecture == null) {
-			return "redirect:/tutorial/lectures";
-		}
-
 		model.addAttribute("lecture", lecture);
 
 		return "lecture/show";
