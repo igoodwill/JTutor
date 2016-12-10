@@ -28,6 +28,15 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"><span class="language"></span><span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a th:href="@{/home/?lang=ua}" href="home/?lang=ua"
+								th:text="#{ukrainian}"></a></li>
+							<li><a th:href="@{/home/?lang=en}" href="home/?lang=en"
+								th:text="#{english}"></a></li>
+						</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#"><span
 							class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -65,9 +74,6 @@
 						<i class="glyphicon glyphicon-chevron-left"></i>
 					</button>
 				</p>
-
-				<input id="ua" type="submit" th:onclick="@{/home/?lang=ua}"></input>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
-				<input id="en" type="submit" th:onclick="@{/home/?lang=en}"></input>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
 
 				<div id="styled" layout:fragment="content" class="content-fragment">
 					<!-- CONTENT GOES HERE -->
