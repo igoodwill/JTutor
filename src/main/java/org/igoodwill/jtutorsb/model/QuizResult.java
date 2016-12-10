@@ -21,7 +21,7 @@ public class QuizResult {
 
 	private Integer questId;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = true)
 	private List<AnswerDTO> answers;
 
 	public QuizResult() {
