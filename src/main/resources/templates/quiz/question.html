@@ -41,7 +41,8 @@
 						<div class="radio" th:unless="${isMultipleAnswer}">
 							<label><input id="${answerStat.index}" type="radio"
 								name="group"
-								th:value="not *{answers[__${answerStat.index}__].state}" /> <span
+								th:value="not *{answers[__${answerStat.index}__].state}"
+								th:field="*{answers[__${answerStat.index}__].state}" /> <span
 								th:text="${answer.value}"></span></label>
 						</div>
 					</div>
