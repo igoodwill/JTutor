@@ -21,12 +21,23 @@
 				</thead>
 				<tbody>
 					<tr th:each="quest : ${quests}">
-						<td><a th:text="${quest.name}"
+						<td
+							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"><a
+							th:text="${quest.name}"
 							th:href="@{'/quest/' + ${quest.id + '/edit'}}"></a></td>
+						<td
+							th:unless="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"
+							th:text="${quest.name}"></td>
 						<td th:text="${quest.description}"></td>
-						<td><a th:href="@{'/quest/' + ${quest.id + '/questions'}}"
+						<td
+							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"><a
+							th:href="@{'/quest/' + ${quest.id + '/questions'}}"
 							th:text="#{questions}"></a></td>
+						<td
+							th:unless="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"
+							th:text="#{questions}"></td>
 						<td><a th:href="@{'/quest/' + ${quest.id + '/delete/'}}"
+							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(quest.getCreatorId())}"
 							onclick="return confirm('Are you sure you want to delete\nquest?');"
 							th:text="#{delete}"></a></td>
 					</tr>
@@ -57,7 +68,8 @@
 						<p class="label label-danger"
 							th:if="${#fields.hasErrors('description')}"
 							th:errors="*{description}">Description Error</p>
-						<button type="submit" class="btn btn-primary" th:text="#{submit}"></button>
+						<button type="submit" class="btn btn-primary"
+							th:if="${isUserHasAccess}" th:text="#{submit}"></button>
 					</div>
 				</div>
 			</form>

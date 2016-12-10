@@ -37,10 +37,10 @@
 			</table>
 		</div>
 		<div class="container">
+			<h2 th:text="#{lecture_form}"></h2>
 			<form class="form-horizontal" th:object="${lectureForm}"
 				th:action="@{/lecture/add}" method="post">
 				<input type="hidden" th:field="*{id}" />
-				<h2 th:text="#{lecture_form}"></h2>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" th:text="#{name} + ':'"></label>
 					<div class="col-sm-10">

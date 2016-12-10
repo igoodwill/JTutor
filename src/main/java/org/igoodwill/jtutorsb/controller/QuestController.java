@@ -29,6 +29,9 @@ public class QuestController {
 	public String questForm(final Model model) {
 		model.addAttribute("quests", repo.findAll());
 		model.addAttribute("questForm", new Quest());
+		model.addAttribute("usersService", usersService);
+		model.addAttribute("isUserHasAccess", true);
+
 		return "admin/quests";
 	}
 
@@ -49,6 +52,10 @@ public class QuestController {
 
 		model.addAttribute("quests", repo.findAll());
 		model.addAttribute("questForm", repo.findOne(questId));
+		model.addAttribute("usersService", usersService);
+		model.addAttribute("isUserHasAccess", usersService.getLoggedInUser().isAdmin()
+				|| repo.findOne(questId).getCreatorId().equals(usersService.getLoggedInUser().getId()));
+
 		return "admin/quests";
 	}
 
@@ -59,12 +66,23 @@ public class QuestController {
 		if (result.hasErrors()) {
 			return "admin/quests";
 		}
+
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !questForm.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+
 		repo.save(questForm);
 		return "redirect:/quest/add";
 	}
 
 	@GetMapping("{questId}/delete")
 	public String removeQuest(@PathVariable final Integer questId) {
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !repo.findOne(questId).getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+
 		repo.delete(questId);
 		return "redirect:/quest/add";
 	}
