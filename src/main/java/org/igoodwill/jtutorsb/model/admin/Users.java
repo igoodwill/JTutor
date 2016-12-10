@@ -1,5 +1,6 @@
 package org.igoodwill.jtutorsb.model.admin;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,14 +19,16 @@ public class Users {
 
 	@NotNull
 	@Size(min = 3, max = 100, message = "Username must at least 3 characters.")
+	@Column(unique = true)
 	private String username;
 
 	@NotNull
 	@Size(min = 3, max = 100, message = "Password must at least 3 characters.")
 	private String password;
 
-	@Email(message = "Email address is not valid.")
 	@NotNull
+	@Email(message = "Email address is not valid.")
+	@Column(unique = true)
 	private String email;
 
 	private String token;
