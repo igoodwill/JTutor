@@ -33,7 +33,7 @@
 							class="glyphicon glyphicon-globe"></span></a>
 						<ul class="dropdown-menu">
 							<li><a
-								th:href="'@{/' + ${#httpServletRequest.requestURI} + '(lang='ua')'}"
+								th:href="@{${#httpServletRequest.requestURI}(lang='ua')}"
 								href="?lang=ua" th:text="#{ukrainian}"></a></li>
 							<li><a th:href="@{/(lang='en')}" href="?lang=en"
 								th:text="#{english}"></a></li>
