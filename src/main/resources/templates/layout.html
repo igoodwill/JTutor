@@ -23,17 +23,16 @@
 					<li><a th:href="@{/}" href="/" th:text="#{home}"></a></li>
 					<li><a th:href="@{/quiz/quests}" href="/quiz/quests"
 						th:text="#{quests}"></a></li>
-					<li><a th:href="@{/lecture/lectures}" href="/lecture/lectures"
-						th:text="#{lectures}"></a></li>
+					<li><a th:href="@{/lecture/lectures}"
+						href="/tutorial/lectures" th:text="#{lectures}"></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"><span class="language"></span><span
-							class="caret"></span></a>
+						data-toggle="dropdown" href="#"><span class="language"></span></a>
 						<ul class="dropdown-menu">
-							<li><a th:href="@{/home/?lang=ua}" href="home/?lang=ua"
+							<li><a th:href="@{/?lang=ua}" href="/?lang=ua"
 								th:text="#{ukrainian}"></a></li>
-							<li><a th:href="@{/home/?lang=en}" href="home/?lang=en"
+							<li><a th:href="@{/?lang=en}" href="/?lang=en"
 								th:text="#{english}"></a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
