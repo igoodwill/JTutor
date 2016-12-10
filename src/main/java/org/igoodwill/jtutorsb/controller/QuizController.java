@@ -117,14 +117,17 @@ public class QuizController {
 		}
 		redirectAttrs.addFlashAttribute("isSomeAnswerChoosed", false);
 
-		Integer userId = answerForm.getUserId();
-		Integer questionId = answerForm.getQuestionId();
+		Quest quest = questRepo.findOne(questId);
+		Integer userId = usersService.getLoggedInUser().getId();
+		Integer questionId = quest.getQuestions().get(questionNumber - 1).getId();
+
+		answerForm.setUserId(userId);
+		answerForm.setQuestId(questId);
+		answerForm.setQuestionId(questionId);
 
 		if (answerDTORepo.findByUserIdAndQuestionId(userId, questionId) != null) {
 			answerDTORepo.deleteAllByUserIdAndQuestionId(userId, questionId);
 		}
-
-		Quest quest = questRepo.findOne(questId);
 
 		for (UserAnswer userAnswer : answerForm.getAnswers()) {
 			userAnswerRepo.save(userAnswer);

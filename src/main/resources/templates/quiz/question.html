@@ -29,10 +29,6 @@
 				<form class="form-horizontal" th:object="${answerForm}"
 					th:action="@{'/quiz/' + ${quest.id} + '/question/' + ${questionNumber}}"
 					method="post">
-					<input type="hidden" th:field="*{id}" /> <input type="hidden"
-						th:field="*{userId}" /><input type="hidden" th:field="*{questId}" />
-					<input type="hidden" th:field="*{questionId}" />
-
 					<div class="container form-group"
 						th:each="answer, answerStat : *{answers}">
 						<input type="hidden"
