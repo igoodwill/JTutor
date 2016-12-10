@@ -41,7 +41,7 @@ public class QuestController {
 		questForm.setCreatorId(usersService.getLoggedInUser().getId());
 
 		if (result.hasErrors()) {
-			return "admin/quests";
+			return "redirect:/quest/add";
 		}
 		repo.save(questForm);
 		return "redirect:/quest/add";
@@ -64,7 +64,7 @@ public class QuestController {
 			@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result) {
 
 		if (result.hasErrors()) {
-			return "admin/quests";
+			return "redirect:/quest/add";
 		}
 
 		if (!usersService.getLoggedInUser().isAdmin()

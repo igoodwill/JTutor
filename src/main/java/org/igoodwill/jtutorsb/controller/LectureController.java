@@ -58,7 +58,7 @@ public class LectureController {
 		lectureForm.setCreatorId(usersService.getLoggedInUser().getId());
 
 		if (result.hasErrors()) {
-			return "admin/lectures";
+			return "redirect:/lecture/add";
 		}
 		lectureRepo.save(lectureForm);
 		return "redirect:/lecture/add";
@@ -81,7 +81,7 @@ public class LectureController {
 			@Valid @ModelAttribute("lectureForm") final Lecture lectureForm, final BindingResult result) {
 
 		if (result.hasErrors()) {
-			return "admin/lectures";
+			return "redirect:/lecture/add";
 		}
 
 		if (!usersService.getLoggedInUser().isAdmin()
