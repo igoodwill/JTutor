@@ -43,7 +43,6 @@ public class QuestController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("quests", repo.findAll());
-			model.addAttribute("questForm", new Quest());
 			model.addAttribute("usersService", usersService);
 			model.addAttribute("isUserHasAccess", true);
 
@@ -72,7 +71,6 @@ public class QuestController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("quests", repo.findAll());
-			model.addAttribute("questForm", new Quest());
 			model.addAttribute("usersService", usersService);
 			model.addAttribute("isUserHasAccess", usersService.getLoggedInUser().isAdmin()
 					|| repo.findOne(questId).getCreatorId().equals(usersService.getLoggedInUser().getId()));
