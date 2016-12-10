@@ -29,17 +29,16 @@
 				<form class="form-horizontal" th:object="${answerForm}"
 					th:action="@{'/quiz/' + ${quest.id} + '/question/' + ${questionNumber}}"
 					method="post">
-					<input type="hidden" th:field="*{id}" readonly="readonly" /> <input
-						type="hidden" th:field="*{userId}" readonly="readonly" /><input
-						type="hidden" th:field="*{questId}" readonly="readonly" /> <input
-						type="hidden" th:field="*{questionId}" readonly="readonly" />
+					<input type="hidden" th:field="*{id}" /> <input type="hidden"
+						th:field="*{userId}" /><input type="hidden" th:field="*{questId}" />
+					<input type="hidden" th:field="*{questionId}" />
 
 					<div class="container form-group"
 						th:each="answer, answerStat : *{answers}">
 						<input type="hidden"
-							th:field="*{answers[__${answerStat.index}__].id}" readonly="readonly" /> <input
+							th:field="*{answers[__${answerStat.index}__].id}" /> <input
 							type="hidden"
-							th:field="*{answers[__${answerStat.index}__].value}" readonly="readonly" />
+							th:field="*{answers[__${answerStat.index}__].value}" />
 						<div class="checkbox">
 							<input th:id="${answerStat.index}" type="checkbox"
 								th:field="*{answers[__${answerStat.index}__].state}" /> <label
