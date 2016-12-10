@@ -36,13 +36,20 @@ public class QuestController {
 	}
 
 	@PostMapping("add")
-	public String questSubmit(@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result) {
+	public String questSubmit(@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result,
+			final Model model) {
 
 		questForm.setCreatorId(usersService.getLoggedInUser().getId());
 
 		if (result.hasErrors()) {
-			return "redirect:/quest/add";
+			model.addAttribute("quests", repo.findAll());
+			model.addAttribute("questForm", new Quest());
+			model.addAttribute("usersService", usersService);
+			model.addAttribute("isUserHasAccess", true);
+
+			return "admin/quests";
 		}
+
 		repo.save(questForm);
 		return "redirect:/quest/add";
 	}
@@ -61,10 +68,16 @@ public class QuestController {
 
 	@PostMapping("{questId}/edit")
 	public String updateQuest(@PathVariable final Integer questId,
-			@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result) {
+			@Valid @ModelAttribute("questForm") final Quest questForm, final BindingResult result, final Model model) {
 
 		if (result.hasErrors()) {
-			return "redirect:/quest/add";
+			model.addAttribute("quests", repo.findAll());
+			model.addAttribute("questForm", new Quest());
+			model.addAttribute("usersService", usersService);
+			model.addAttribute("isUserHasAccess", usersService.getLoggedInUser().isAdmin()
+					|| repo.findOne(questId).getCreatorId().equals(usersService.getLoggedInUser().getId()));
+
+			return "admin/quests";
 		}
 
 		if (!usersService.getLoggedInUser().isAdmin()

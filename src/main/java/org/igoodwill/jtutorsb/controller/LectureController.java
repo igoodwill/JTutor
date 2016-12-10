@@ -58,11 +58,14 @@ public class LectureController {
 		lectureForm.setCreatorId(usersService.getLoggedInUser().getId());
 
 		if (result.hasErrors()) {
+			model.addAttribute("lectures", lectureRepo.findAll());
+			model.addAttribute("lectureForm", new Lecture());
 			model.addAttribute("usersService", usersService);
 			model.addAttribute("isUserHasAccess", true);
+
 			return "admin/lectures";
 		}
-		
+
 		lectureRepo.save(lectureForm);
 		return "redirect:/lecture/add";
 	}
@@ -81,10 +84,17 @@ public class LectureController {
 
 	@PostMapping("/lecture/{lectureId}/edit")
 	public String updateLecture(@PathVariable final Integer lectureId,
-			@Valid @ModelAttribute("lectureForm") final Lecture lectureForm, final BindingResult result) {
+			@Valid @ModelAttribute("lectureForm") final Lecture lectureForm, final BindingResult result,
+			final Model model) {
 
 		if (result.hasErrors()) {
-			return "redirect:/lecture/add";
+			model.addAttribute("lectures", lectureRepo.findAll());
+			model.addAttribute("lectureForm", new Lecture());
+			model.addAttribute("usersService", usersService);
+			model.addAttribute("isUserHasAccess", usersService.getLoggedInUser().isAdmin()
+					|| lectureRepo.findOne(lectureId).getCreatorId().equals(usersService.getLoggedInUser().getId()));
+
+			return "admin/lectures";
 		}
 
 		if (!usersService.getLoggedInUser().isAdmin()
