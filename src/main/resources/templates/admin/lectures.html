@@ -67,7 +67,9 @@
 					</div>
 				</div>
 				<div>
-					<button type="submit" class="btn btn-primary" th:text="#{submit}"></button>
+					<button type="submit"
+						th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(lectureForm.getCreatorId())}"
+						class="btn btn-primary" th:text="#{submit}"></button>
 				</div>
 			</form>
 		</div>

@@ -77,6 +77,11 @@ public class LectureController {
 		if (result.hasErrors()) {
 			return "admin/lectures";
 		}
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !lectureForm.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/lecture/add";
+		}
+
 		lectureRepo.save(lectureForm);
 		return "redirect:/lecture/add";
 	}
