@@ -22,7 +22,8 @@
 				class="form-control middle" th:placeholder="#{first_name}" /> <input
 				type="text" th:field="*{lastName}" class="form-control bottom"
 				th:placeholder="#{last_name}" /> <input type="hidden"
-				th:field="*{username}" /> <input type="hidden" th:field="*{id}" />
+				th:field="*{username}" readonly="readonly" /> <input type="hidden"
+				th:field="*{id}" readonly="readonly" />
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit"
 				th:text="#{save}"></button>
