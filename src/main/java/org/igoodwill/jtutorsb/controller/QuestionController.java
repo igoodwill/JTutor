@@ -35,10 +35,14 @@ public class QuestionController {
 	public String questionForm(@PathVariable final Integer questId, final Model model) {
 
 		Quest quest = questRepo.findOne(questId);
+
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !quest.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+
 		model.addAttribute("quest", quest);
 		model.addAttribute("questions", quest.getQuestions());
-		model.addAttribute("usersService", usersService);
-		model.addAttribute("isUserHasAccess", true);
 
 		if (!model.containsAttribute("questionForm")) {
 			model.addAttribute("questionForm", new Question());
@@ -68,6 +72,12 @@ public class QuestionController {
 			final Model model) {
 
 		Quest quest = questRepo.findOne(questId);
+
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !quest.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+
 		model.addAttribute("questions", quest.getQuestions());
 		model.addAttribute("quest", quest);
 		if (!model.containsAttribute("questionForm")) {
@@ -94,6 +104,12 @@ public class QuestionController {
 	public String removeQuestion(@PathVariable final Integer questId, @PathVariable final Integer questionId) {
 
 		Quest quest = questRepo.findOne(questId);
+		
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !quest.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+		
 		quest.getQuestions().remove(questionRepo.findOne(questionId));
 		questRepo.save(quest);
 		questionRepo.delete(questionId);

@@ -64,6 +64,8 @@
 						<p class="label label-danger"
 							th:if="${#fields.hasErrors('description')}"
 							th:errors="*{description}">Description Error</p>
+					</div>
+					<div>
 						<button type="submit" class="btn btn-primary"
 							th:if="${isUserHasAccess}" th:text="#{submit}"></button>
 					</div>

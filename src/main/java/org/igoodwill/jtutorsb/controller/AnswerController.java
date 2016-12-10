@@ -8,6 +8,7 @@ import org.igoodwill.jtutorsb.model.admin.Question;
 import org.igoodwill.jtutorsb.repositories.AnswerRepository;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
 import org.igoodwill.jtutorsb.repositories.QuestionRepository;
+import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AnswerController {
 
 	@Autowired
+	UsersService usersService;
+
+	@Autowired
 	QuestRepository questRepo;
 
 	@Autowired
@@ -32,12 +36,16 @@ public class AnswerController {
 	AnswerRepository answerRepo;
 
 	@GetMapping("{questId}/question/{questionId}/answers")
-	public String answerForm(
-			@PathVariable final Integer questId, 
-			@PathVariable final Integer questionId, 
+	public String answerForm(@PathVariable final Integer questId, @PathVariable final Integer questionId,
 			final Model model) {
-		
+
 		Quest quest = questRepo.findOne(questId);
+
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !quest.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+
 		Question question = questionRepo.findOne(questionId);
 		model.addAttribute("question", question);
 		model.addAttribute("answers", question.getAnswers());
@@ -47,12 +55,9 @@ public class AnswerController {
 	}
 
 	@PostMapping("{questId}/question/{questionId}/answers")
-	public String addAnswer(
-			@PathVariable final Integer questId, 
-			@PathVariable final Integer questionId,
-			@Valid @ModelAttribute("answerForm") final Answer answerForm, 
-			final BindingResult result) {
-		
+	public String addAnswer(@PathVariable final Integer questId, @PathVariable final Integer questionId,
+			@Valid @ModelAttribute("answerForm") final Answer answerForm, final BindingResult result) {
+
 		Question question = questionRepo.findOne(questionId);
 		if (result.hasErrors()) {
 			return "redirect:/quest/" + questId + "/question/" + questionId + "/answers";
@@ -64,27 +69,28 @@ public class AnswerController {
 	}
 
 	@GetMapping("{questId}/question/{questionId}/answer/{answerId}/edit")
-	public String editAnswer(
-			@PathVariable final Integer questId, 
-			@PathVariable final Integer questionId, 
-			@PathVariable final Integer answerId,
-			final Model model) {
-		
+	public String editAnswer(@PathVariable final Integer questId, @PathVariable final Integer questionId,
+			@PathVariable final Integer answerId, final Model model) {
+
+		Quest quest = questRepo.findOne(questId);
+
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !quest.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+
 		Question question = questionRepo.findOne(questionId);
 		model.addAttribute("question", question);
 		model.addAttribute("answers", question.getAnswers());
 		model.addAttribute("answerForm", answerRepo.findOne(answerId));
-		model.addAttribute("quest", questRepo.findOne(questId));
+		model.addAttribute("quest", quest);
 		return "admin/answers";
 	}
 
 	@PostMapping("{questId}/question/{questionId}/answer/{answerId}/edit")
-	public String updateAnswer(
-			@PathVariable final Integer questId, 
-			@PathVariable final Integer questionId,
-			@Valid @ModelAttribute("answerForm") final Answer answerForm, 
-			final BindingResult result) {
-		
+	public String updateAnswer(@PathVariable final Integer questId, @PathVariable final Integer questionId,
+			@Valid @ModelAttribute("answerForm") final Answer answerForm, final BindingResult result) {
+
 		if (result.hasErrors()) {
 			return "redirect:/quest/" + questId + "/question/" + questionId + "/answers";
 		}
@@ -93,11 +99,16 @@ public class AnswerController {
 	}
 
 	@GetMapping("{questId}/question/{questionId}/answer/{answerId}/delete")
-	public String removeAnswer(
-			@PathVariable final Integer questId, 
-			@PathVariable final Integer questionId, 
+	public String removeAnswer(@PathVariable final Integer questId, @PathVariable final Integer questionId,
 			@PathVariable final Integer answerId) {
-		
+
+		Quest quest = questRepo.findOne(questId);
+
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !quest.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/quest/add";
+		}
+
 		Question question = questionRepo.findOne(questionId);
 		question.getAnswers().remove(answerRepo.findOne(answerId));
 		questionRepo.save(question);
