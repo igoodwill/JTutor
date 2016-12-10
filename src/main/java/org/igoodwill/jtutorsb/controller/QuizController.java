@@ -59,7 +59,7 @@ public class QuizController {
 
 		Integer userId = usersService.getLoggedInUser().getId();
 		if (questionNumber == 0) {
-			quizResultRepo.deleteByUserIdAndQuestId(userId, questId);
+			quizResultRepo.deleteAllByUserIdAndQuestId(userId, questId);
 			return "redirect:/quiz/" + questId + "/question/1";
 		}
 

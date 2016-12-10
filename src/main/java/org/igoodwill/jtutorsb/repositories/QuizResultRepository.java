@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface QuizResultRepository extends CrudRepository<QuizResult, Integer> {
 
 	@Transactional
-	public void deleteByUserIdAndQuestId(Integer userId, Integer questId);
+	public void deleteAllByUserIdAndQuestId(Integer userId, Integer questId);
 
 	public QuizResult findByUserIdAndQuestId(Integer userId, Integer questId);
 
