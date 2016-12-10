@@ -53,13 +53,16 @@ public class LectureController {
 
 	@PostMapping("/lecture/add")
 	public String lectureSubmit(@Valid @ModelAttribute("lectureForm") final Lecture lectureForm,
-			final BindingResult result) {
+			final BindingResult result, final Model model) {
 
 		lectureForm.setCreatorId(usersService.getLoggedInUser().getId());
 
 		if (result.hasErrors()) {
-			return "redirect:/lecture/add";
+			model.addAttribute("usersService", usersService);
+			model.addAttribute("isUserHasAccess", true);
+			return "admin/lectures";
 		}
+		
 		lectureRepo.save(lectureForm);
 		return "redirect:/lecture/add";
 	}

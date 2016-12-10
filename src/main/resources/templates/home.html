@@ -17,8 +17,6 @@
 			<a th:if="${isAdminOrTutor}" th:href="@{/lecture/add}"
 				th:text="#{create_or_update_lectures}"></a>
 		</h3>
-		<div id="created" th:text="${#dates.format(date)}">October 25,
-			2016</div>
 	</div>
 </body>
 </html>
