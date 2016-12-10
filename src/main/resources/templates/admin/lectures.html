@@ -20,8 +20,13 @@
 				</thead>
 				<tbody>
 					<tr th:each="lecture : ${lectures}">
-						<td><a th:text="${lecture.name}"
+						<td
+							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(lecture.getCreatorId())}"><a
+							th:text="${lecture.name}"
 							th:href="@{'/lecture/' + ${lecture.id + '/edit'}}"></a></td>
+						<td
+							th:unless="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(lecture.getCreatorId())}"
+							th:text="${lecture.name}"></td>
 						<td th:text="${lecture.description}"></td>
 						<td><a th:href="@{'/lecture/' + ${lecture.id + '/delete/'}}"
 							th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(lecture.getCreatorId())}"
@@ -67,9 +72,7 @@
 					</div>
 				</div>
 				<div>
-					<button type="submit"
-						th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(lectureForm.getCreatorId())}"
-						class="btn btn-primary" th:text="#{submit}"></button>
+					<button type="submit" class="btn btn-primary" th:text="#{submit}"></button>
 				</div>
 			</form>
 		</div>

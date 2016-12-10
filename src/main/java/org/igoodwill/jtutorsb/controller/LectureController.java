@@ -77,6 +77,7 @@ public class LectureController {
 		if (result.hasErrors()) {
 			return "admin/lectures";
 		}
+
 		if (!usersService.getLoggedInUser().isAdmin()
 				&& !lectureForm.getCreatorId().equals(usersService.getLoggedInUser().getId())) {
 			return "redirect:/lecture/add";
@@ -88,6 +89,11 @@ public class LectureController {
 
 	@GetMapping("/lecture/{lectureId}/delete")
 	public String removeLecture(@PathVariable final Integer lectureId) {
+		if (!usersService.getLoggedInUser().isAdmin()
+				&& !lectureRepo.findOne(lectureId).getCreatorId().equals(usersService.getLoggedInUser().getId())) {
+			return "redirect:/lecture/add";
+		}
+
 		lectureRepo.delete(lectureId);
 		return "redirect:/lecture/add";
 	}
