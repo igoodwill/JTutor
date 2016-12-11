@@ -33,7 +33,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").failureUrl("/login?error")
 				.permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/login").and().rememberMe().key(applicationSecret).tokenValiditySeconds(31536000);
-		http.csrf().disable();
 		http.headers().frameOptions().disable();
 	}
 
