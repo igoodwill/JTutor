@@ -3,7 +3,9 @@ package org.igoodwill.jtutorsb.controller;
 import javax.validation.Valid;
 
 import org.igoodwill.jtutorsb.model.admin.Quest;
+import org.igoodwill.jtutorsb.model.admin.Users;
 import org.igoodwill.jtutorsb.repositories.QuestRepository;
+import org.igoodwill.jtutorsb.repositories.QuizResultRepository;
 import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class QuestController {
 
 	@Autowired
 	QuestRepository repo;
+	
+	@Autowired
+	QuizResultRepository quizResultRepo;
 
 	@GetMapping("add")
 	public String questForm(final Model model) {
@@ -89,11 +94,15 @@ public class QuestController {
 
 	@GetMapping("{questId}/delete")
 	public String removeQuest(@PathVariable final Integer questId) {
-		if (!usersService.getLoggedInUser().isAdmin()
+		
+		Users user = usersService.getLoggedInUser();
+		
+		if (!user.isAdmin()
 				&& !repo.findOne(questId).getCreatorId().equals(usersService.getLoggedInUser().getId())) {
 			return "redirect:/quest/add";
 		}
 
+		quizResultRepo.deleteByUserIdAndQuestId(user.getId(), questId);
 		repo.delete(questId);
 		return "redirect:/quest/add";
 	}
