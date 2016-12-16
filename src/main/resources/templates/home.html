@@ -12,27 +12,27 @@
 		<div class="row">
 			<div class="col-md-4 col-md-offset-3">
 				<form th:action="@{/search}" class="search-form">
-					<h1 th:text="#{welcome}"></h1>
-					<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
-						<a th:href="@{/quest/add}" th:text="#{create_or_update_quests}"></a>
-					</h3>
-					<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
-						<a th:href="@{/lecture/add}"
-							th:text="#{create_or_update_lectures}"></a>
-					</h3>
 					<div class="form-group has-feedback">
+						<h1 th:text="#{welcome}"></h1>
+						<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
+							<a th:href="@{/quest/add}" th:text="#{create_or_update_quests}"></a>
+						</h3>
+						<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
+							<a th:href="@{/lecture/add}"
+								th:text="#{create_or_update_lectures}"></a>
+						</h3>
 						<label for="search" class="sr-only" th:text="#{search}"></label> <input
 							type="text" class="form-control" name="search" id="search"
-							th:placeholder="#{search}"></input> <span
+							th:placeholder="#{search}" th:></input> <span
 							class="glyphicon glyphicon-search form-control-feedback"></span>
 						<script type="text/javascript" th:inline="javascript">
 							/*<![CDATA[*/
 
-							$('input').focusin(function() {
+							$('search').focusin(function() {
 								$('.has-feedback').addClass("showClass");
 							});
 
-							$('input').focusout(function() {
+							$('search').focusout(function() {
 								$('.has-feedback').removeClass("showClass");
 							});
 
