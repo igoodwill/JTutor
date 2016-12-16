@@ -151,6 +151,7 @@ public class QuizController {
 
 	@GetMapping("{questId}/result")
 	public String showResult(@PathVariable final Integer questId, final Model model) {
+		quizResultRepo.deleteAll();
 		Integer userId = usersService.getLoggedInUser().getId();
 
 		QuizResult result = quizResultRepo.findByUserIdAndQuestId(userId, questId);
