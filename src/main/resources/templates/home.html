@@ -9,15 +9,15 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1 th:text="#{welcome}"></h1>
-		<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
-			<a th:href="@{/quest/add}" th:text="#{create_or_update_quests}"></a>
-		</h3>
-		<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
-			<a th:href="@{/lecture/add}" th:text="#{create_or_update_lectures}"></a>
-		</h3>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-3">
+				<h1 th:text="#{welcome}"></h1>
+				<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
+					<a th:href="@{/quest/add}" th:text="#{create_or_update_quests}"></a>
+				</h3>
+				<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
+					<a th:href="@{/lecture/add}" th:text="#{create_or_update_lectures}"></a>
+				</h3>
 				<form th:action="@{/search}" class="search-form">
 					<div class="form-group has-feedback">
 						<label for="search" class="sr-only" th:text="#{search}"></label> <input
