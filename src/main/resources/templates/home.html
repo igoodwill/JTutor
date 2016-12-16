@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-md-4 col-md-offset-3">
 				<form th:action="@{/search}" class="search-form">
-					<div class="form-group showClass">
+					<div>
 						<h1 th:text="#{welcome}"></h1>
 						<h3 sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_TUTOR')">
 							<a th:href="@{/quest/add}" th:text="#{create_or_update_quests}"></a>
