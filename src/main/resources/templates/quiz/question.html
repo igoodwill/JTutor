@@ -25,7 +25,14 @@
 			<div id="styled">
 				<h2
 					th:text="#{question} + ' ' + ${questionNumber} + '/' + ${questionsCount} + ':'"></h2>
-				<pre th:text="${question}"></pre>
+				<div id="question"></div>
+				<script type="text/javascript" th:inline="javascript">
+				/*<![CDATA[*/
+				
+				$("#question").html([[${question.value}]]);
+			
+				/*]]>*/
+				</script>
 				<form class="form-horizontal" th:object="${answerForm}"
 					th:action="@{'/quiz/' + ${quest.id} + '/question/' + ${questionNumber}}"
 					method="post">
