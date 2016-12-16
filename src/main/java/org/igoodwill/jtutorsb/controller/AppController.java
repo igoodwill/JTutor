@@ -12,4 +12,9 @@ public class AppController {
 	public String homePage(Map<String, Object> model) {
 		return "home";
 	}
+
+	@GetMapping("/search")
+	public String search(Map<String, Object> model) {
+		return "home";
+	}
 }
