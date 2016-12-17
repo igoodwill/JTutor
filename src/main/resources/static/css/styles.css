@@ -121,9 +121,14 @@ body {
 
 #custom-search-input {
 	padding: 3px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
 	border: solid 1px #E4E4E4;
 	border-radius: 6px;
 	background-color: #fff;
+	height: 75%;
 }
 
 #custom-search-input input {
@@ -145,10 +150,6 @@ body {
 	border: 0;
 	box-shadow: none;
 	border-left: solid 1px #ccc;
-}
-
-#custom-search-input .glyphicon-search {
-	font-size: 23px;
 }
 
 #horizontal ul {
