@@ -9,6 +9,6 @@ public class AppController {
 
 	@GetMapping({ "/", "/home" })
 	public String homePage(final Model model) {
-		return "home";
+		return "index";
 	}
 }

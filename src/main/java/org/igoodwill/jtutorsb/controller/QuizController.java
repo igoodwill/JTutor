@@ -64,6 +64,12 @@ public class QuizController {
 		}
 
 		Quest quest = questRepo.findOne(questId);
+		
+		if (quest == null)
+		{
+			return "redirect:/search/";
+		}
+		
 		model.addAttribute("quest", quest);
 		model.addAttribute("questionsCount", quest.getQuestions().size());
 

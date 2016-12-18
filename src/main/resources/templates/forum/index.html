@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{forum}"></title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div>
+			<div class="question-summary narrow">
+				<a type="submit" class="btn btn-default"
+					th:text="#{new_forum_question}" href="forum/question/new"></a>
+			</div>
+			<div th:unless="${#lists.isEmpty(questions)}"
+				th:each="question : ${questions}" class="question-summary narrow">
+				<div th:if="${question.closed}" class="status answered">
+					<div class="mini-counts">
+						<span th:text="${#lists.size(question.forumAnswers)}"></span>
+					</div>
+					<div th:id="'answers-count' + ${questionStat.index}"></div>
+				</div>
+				<div th:unless="${question.closed}" class="status unanswered">
+					<div class="mini-counts">
+						<span th:text="${#lists.size(question.forumAnswers)}"></span>
+					</div>
+					<div th:id="'answers-count' + ${questionStat.index}"></div>
+				</div>
+				<script type="text/javascript" th:inline="javascript">
+				/*<![CDATA[*/
+				
+				$("#answers-count" + [[${questionStat.index}]]).html(getWordAnswers([[${#lists.size(question.forumAnswers)}]], [[${lang}]]));
+			
+				/*]]>*/
+				</script>
+				<div class="summary">
+					<h3>
+						<a class="question-hyperlink"
+							th:href="@{'/forum/question/' + ${question.id}}"
+							th:text="${question.name}"></a>
+					</h3>
+					<div class="started">
+						<span
+							th:text="${usersRepo.findOne(question.creatorId).username} + ' ' + #{asked} + ' ' + ${question.getTime(lang)}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

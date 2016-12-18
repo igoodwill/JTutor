@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{forum}"></title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="forum-question">
+			<h2 th:text="${question.name}"></h2>
+			<pre id="question"></pre>
+			<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+				
+			$("#question").html([[${question.value}]]);
+			
+			/*]]>*/
+		</script>
+			<div th:unless="${question.closed}">
+				<a
+					th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(question.getCreatorId())}"
+					th:text="#{edit}"
+					th:href="@{'/forum/question/' + ${question.id + '/edit'}}"></a> <a
+					th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(question.getCreatorId())}"
+					th:text="#{close_question}"
+					th:href="@{'/forum/question/' + ${question.id + '/close'}}"></a> <a
+					sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete}"
+					th:href="@{'/forum/question/' + ${question.id + '/delete'}}"></a> <span
+					class="started"
+					th:text="${usersRepo.findOne(question.creatorId).username} + ' ' + #{asked} + ' ' + ${question.getTime(lang)}"></span>
+			</div>
+			<div th:if="${question.closed}">
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete}"
+					th:href="@{'/forum/question/' + ${question.id + '/delete'}}"></a> <span
+					class="started"
+					th:text="${usersRepo.findOne(question.creatorId).username} + ' ' + #{asked} + ' ' + ${question.getTime(lang)}"></span>
+			</div>
+		</div>
+		<h2 th:unless="${#lists.isEmpty(question.forumAnswers)}"
+			th:text="#{answers} + ':'"></h2>
+		<div th:unless="${#lists.isEmpty(question.forumAnswers)}"
+			th:each="answer : ${question.forumAnswers}">
+			<div class="forum-question"
+				th:if="${answer.creatorId == usersService.getLoggedInUser().getId()} or ${answer.liked.contains(usersService.getLoggedInUser().getId())}">
+				<div class="liked">
+					<i class="glyphicon glyphicon-star"></i> <span
+						th:text="${#lists.size(answer.liked)}"></span>
+				</div>
+				<pre th:id="'answer' + ${answerStat.index}"></pre>
+				<script type="text/javascript" th:inline="javascript">
+				/*<![CDATA[*/
+				
+				$("#answer" + [[${answerStat.index}]]).html([[${answer.value}]]);
+			
+				/*]]>*/
+				</script>
+				<div th:unless="${question.closed}">
+					<a
+						th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(answer.getCreatorId())}"
+						th:text="#{edit}"
+						th:href="@{'/forum/question/' + ${question.id} + '/answer/' + ${answer.id + '/edit'}}"></a>
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete}"
+						th:href="@{'/forum/question/' + ${question.id} + '/answer/' + ${answer.id + '/delete'}}"></a>
+					<span class="started"
+						th:text="${usersRepo.findOne(answer.creatorId).username} + ' ' + #{answered} + ' ' + ${answer.getTime(lang)}"></span>
+				</div>
+				<div th:if="${question.closed}">
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete}"
+						th:href="@{'/forum/question/' + ${question.id} + '/answer/' + ${answer.id + '/delete'}}"></a>
+					<span class="started"
+						th:text="${usersRepo.findOne(answer.creatorId).username} + ' ' + #{answered} + ' ' + ${answer.getTime(lang)}"></span>
+				</div>
+			</div>
+
+			<div class="forum-question"
+				th:unless="${answer.creatorId == usersService.getLoggedInUser().getId()} or ${answer.liked.contains(usersService.getLoggedInUser().getId())}">
+				<div class="liked">
+					<a
+						th:href="@{'/forum/question/' + ${question.id} + '/answer/' + ${answer.id} + '/like'}"><i
+						class="glyphicon glyphicon-star-empty"></i></a><span
+						th:text="${#lists.size(answer.liked)}"></span>
+				</div>
+				<pre th:id="'answer' + ${answerStat.index}"></pre>
+				<script type="text/javascript" th:inline="javascript">
+				/*<![CDATA[*/
+				
+				$("#answer" + [[${answerStat.index}]]).html([[${answer.value}]]);
+			
+				/*]]>*/
+				</script>
+				<div th:unless="${question.closed}">
+					<a
+						th:if="${usersService.getLoggedInUser().isAdmin()} or ${usersService.getLoggedInUser().getId().equals(answer.getCreatorId())}"
+						th:text="#{edit}"
+						th:href="@{'/forum/question/' + ${question.id} + '/answer/' + ${answer.id + '/edit'}}"></a>
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete}"
+						th:href="@{'/forum/question/' + ${question.id} + '/answer/' + ${answer.id + '/delete'}}"></a>
+					<span class="started"
+						th:text="${usersRepo.findOne(answer.creatorId).username} + ' ' + #{answered} + ' ' + ${answer.getTime(lang)}"></span>
+				</div>
+				<div th:if="${question.closed}">
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete}"
+						th:href="@{'/forum/question/' + ${question.id} + '/answer/' + ${answer.id + '/delete'}}"></a>
+					<span class="started"
+						th:text="${usersRepo.findOne(answer.creatorId).username} + ' ' + #{answered} + ' ' + ${answer.getTime(lang)}"></span>
+				</div>
+			</div>
+		</div>
+		<div class="container" th:unless="${question.closed}">
+			<h2 th:text="#{answer}"></h2>
+			<form th:unless="${edit}" class="form-horizontal"
+				th:object="${answerForm}"
+				th:action="@{'/forum/question/' + ${question.id} + '/answer/new'}"
+				method="post">
+				<div class="form-group">
+					<div class="col-sm-10">
+						<textarea class="form-control" th:field="*{value}"
+							required="required" autofocus="autofocus"></textarea>
+						<p class="label label-danger"
+							th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value
+							Error</p>
+					</div>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary" th:text="#{answer}"></button>
+				</div>
+			</form>
+			<form th:if="${edit}" class="form-horizontal"
+				th:object="${answerForm}"
+				th:action="@{'/forum/question/' + ${question.id} + '/answer/' + ${answerForm.id + '/edit'}}"
+				method="post">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" th:text="#{value} + ':'"></label>
+					<div class="col-sm-10">
+						<textarea class="form-control" th:field="*{value}"
+							required="required" autofocus="autofocus"></textarea>
+						<p class="label label-danger"
+							th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value
+							Error</p>
+					</div>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary" th:text="#{answer}"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

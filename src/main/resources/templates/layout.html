@@ -21,10 +21,11 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar">
-					<li><a th:href="@{/quiz/quests}" href="/quiz/quests"
+					<li><a th:href="@{/quiz/quests}" href="quiz/quests"
 						th:text="#{quests}"></a></li>
 					<li><a th:href="@{/tutorial/lectures}"
-						href="/tutorial/lectures" th:text="#{lectures}"></a></li>
+						href="tutorial/lectures" th:text="#{lectures}"></a></li>
+					<li><a th:href="@{/forum}" href="forum" th:text="#{forum}"></a></li>
 					<li th:if="${query} == null"><div id="custom-search-input">
 							<form th:action="@{/search}" class="input-group" method="post">
 								<input type="text" class="form-control" name="query"

@@ -34,9 +34,14 @@ public class LectureController {
 	@GetMapping("/tutorial/{lectureId}")
 	public String showLecture(final Model model, @PathVariable final Integer lectureId) {
 		Lecture lecture = lectureRepo.findOne(lectureId);
+
+		if (lecture == null) {
+			return "redirect:/search/";
+		}
+
 		model.addAttribute("lecture", lecture);
 
-		return "lecture/show";
+		return "lecture/index";
 	}
 
 	// ADMIN

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title th:text="${lecture.name}"></title>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div id="lecture"></div>
+		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+				
+			$("#lecture").html([[${lecture.value}]]);
+			
+			/*]]>*/
+		</script>
+	</div>
+</body>
+</html>
