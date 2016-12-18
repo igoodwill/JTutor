@@ -3,6 +3,7 @@ package org.igoodwill.jtutorsb.controller;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/forum")
 public class ForumController {
+
+	private static final String regex = "</?(?!(?:b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|i|kbd|li|ol|p|pre|s|sup|sub|string|strike|ul|br|hr)\\s*>)[a-z](?:[^>\"']|\"[^\"]*\"|'[^']*')*>";
 
 	@Autowired
 	private UsersService usersService;
@@ -65,6 +69,9 @@ public class ForumController {
 		question.setId(null);
 		question.setCreatorId(usersService.getLoggedInUser().getId());
 		question.setCreated(new Date());
+
+		if (Pattern.compile(regex).matcher(question.getValue()).find())
+			result.rejectValue("value", "error.banned_symbols", "You are using banned symbols");
 
 		if (result.hasErrors()) {
 			return "forum/question/new";
@@ -119,6 +126,9 @@ public class ForumController {
 		question.setCreatorId(original.getCreatorId());
 		question.setForumAnswers(original.getForumAnswers());
 
+		if (Pattern.compile(regex).matcher(question.getValue()).find())
+			result.rejectValue("value", "error.banned_symbols", "You are using banned symbols");
+
 		if (result.hasErrors()) {
 			model.addAttribute("question", question);
 
@@ -172,6 +182,9 @@ public class ForumController {
 		answerForm.setCreatorId(usersService.getLoggedInUser().getId());
 		answerForm.setCreated(new Date());
 
+		if (Pattern.compile(regex).matcher(answerForm.getValue()).find())
+			result.rejectValue("value", "error.banned_symbols", "You are using banned symbols");
+
 		if (result.hasErrors()) {
 			model.addAttribute("edit", false);
 			model.addAttribute("answerForm", answerForm);
@@ -224,6 +237,9 @@ public class ForumController {
 		answerForm.setCreated(original.getCreated());
 		answerForm.setCreatorId(original.getCreatorId());
 		answerForm.setLiked(original.getLiked());
+
+		if (Pattern.compile(regex).matcher(answerForm.getValue()).find())
+			result.rejectValue("value", "error.banned_symbols", "You are using banned symbols");
 
 		if (result.hasErrors()) {
 			model.addAttribute("edit", true);
