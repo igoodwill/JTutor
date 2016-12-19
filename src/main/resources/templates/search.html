@@ -55,6 +55,42 @@
 				</tbody>
 			</table>
 		</div>
+		<h2 th:unless="${#lists.isEmpty(forumQuestions)}" th:text="#{forum}"
+			class="question-summary narrow"></h2>
+		<div th:unless="${#lists.isEmpty(forumQuestions)}"
+			th:each="forumQuestion : ${forumQuestions}"
+			class="question-summary narrow">
+			<div th:if="${forumQuestion.closed}" class="status answered">
+				<div class="mini-counts">
+					<span th:text="${#lists.size(forumQuestion.forumAnswers)}"></span>
+				</div>
+				<div th:id="'answers-count' + ${forumQuestionStat.index}"></div>
+			</div>
+			<div th:unless="${forumQuestion.closed}" class="status unanswered">
+				<div class="mini-counts">
+					<span th:text="${#lists.size(forumQuestion.forumAnswers)}"></span>
+				</div>
+				<div th:id="'answers-count' + ${forumQuestionStat.index}"></div>
+			</div>
+			<script type="text/javascript" th:inline="javascript">
+				/*<![CDATA[*/
+				
+				$("#answers-count" + [[${forumQuestionStat.index}]]).html(getWordAnswers([[${#lists.size(forumQuestion.forumAnswers)}]], [[${lang}]]));
+			
+				/*]]>*/
+				</script>
+			<div class="summary">
+				<h3>
+					<a class="question-hyperlink"
+						th:href="@{'/forum/question/' + ${forumQuestion.id}}"
+						th:text="${forumQuestion.name}"></a>
+				</h3>
+				<div class="started">
+					<span
+						th:text="${usersRepo.findOne(forumQuestion.creatorId).username} + ' ' + #{asked} + ' ' + ${forumQuestion.getTime(lang)}"></span>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

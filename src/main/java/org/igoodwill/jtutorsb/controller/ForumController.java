@@ -15,15 +15,16 @@ import org.igoodwill.jtutorsb.repositories.UsersRepository;
 import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/forum")
@@ -48,11 +49,26 @@ public class ForumController {
 		List<ForumQuestion> questions = (List<ForumQuestion>) questionRepo.findAll();
 		Collections.reverse(questions);
 
-		model.addAttribute("questions", questions);
+		if (!model.containsAttribute("query")) {
+			model.addAttribute("query", "");
+			model.addAttribute("questions", questions);
+		}
+
 		model.addAttribute("usersRepo", usersRepo);
 		model.addAttribute("lang", LocaleContextHolder.getLocale().getLanguage());
 
 		return "forum/index";
+	}
+
+	@PostMapping("")
+	public String search(@Param(value = "query") final String query, final RedirectAttributes redirectAttributes) {
+		List<ForumQuestion> questions = questionRepo.findByNameIgnoreCaseContaining(query);
+		Collections.reverse(questions);
+
+		redirectAttributes.addFlashAttribute("query", query);
+		redirectAttributes.addFlashAttribute("questions", questions);
+
+		return "redirect:/forum";
 	}
 
 	@GetMapping("/question/new")

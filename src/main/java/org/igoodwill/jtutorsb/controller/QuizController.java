@@ -16,6 +16,7 @@ import org.igoodwill.jtutorsb.repositories.QuizResultRepository;
 import org.igoodwill.jtutorsb.repositories.UserAnswerRepository;
 import org.igoodwill.jtutorsb.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,9 +49,23 @@ public class QuizController {
 	AnswerDTORepository answerDTORepo;
 
 	@GetMapping("quests")
-	public String list(Model model) {
-		model.addAttribute("quests", questRepo.findAll());
+	public String list(final Model model) {
+		if (!model.containsAttribute("query")) {
+			model.addAttribute("query", "");
+			model.addAttribute("quests", questRepo.findAll());
+		}
+
 		return "quiz/quests";
+	}
+
+	@PostMapping("quests")
+	public String search(@Param(value = "query") final String query, final RedirectAttributes redirectAttributes) {
+		List<Quest> quests = questRepo.findByNameIgnoreCaseContaining(query);
+
+		redirectAttributes.addFlashAttribute("query", query);
+		redirectAttributes.addFlashAttribute("quests", quests);
+
+		return "redirect:/quiz/quests";
 	}
 
 	@GetMapping("{questId}/question/{questionNumber}")
@@ -64,12 +79,11 @@ public class QuizController {
 		}
 
 		Quest quest = questRepo.findOne(questId);
-		
-		if (quest == null)
-		{
+
+		if (quest == null) {
 			return "redirect:/search/";
 		}
-		
+
 		model.addAttribute("quest", quest);
 		model.addAttribute("questionsCount", quest.getQuestions().size());
 
