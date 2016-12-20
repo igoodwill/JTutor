@@ -18,16 +18,16 @@ public class Users {
 	private Integer id;
 
 	@NotNull
-	@Size(min = 3, max = 100, message = "Username must at least 3 characters.")
+	@Size(min = 3, max = 100, message = "{username.size}")
 	@Column(unique = true)
 	private String username;
 
 	@NotNull
-	@Size(min = 3, max = 100, message = "Password must at least 3 characters.")
+	@Size(min = 3, max = 100, message = "{password.size}")
 	private String password;
 
 	@NotNull
-	@Email(message = "Email address is not valid.")
+	@Email
 	@Column(unique = true)
 	private String email;
 

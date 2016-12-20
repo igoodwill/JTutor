@@ -79,8 +79,7 @@ public class UsersController {
 			return "user/register-success";
 		} else {
 			log.error("User already exists: " + users.getUsername());
-			result.rejectValue("email", "error.alreadyExists",
-					"This username or email already exists, please try to reset password instead.");
+			result.rejectValue("email", "error.alreadyExists");
 			return "user/register";
 		}
 	}
@@ -94,7 +93,7 @@ public class UsersController {
 	public String resetPasswordEmailPost(Users users, BindingResult result) {
 		Users u = usersRepository.findOneByEmail(users.getEmail());
 		if (u == null) {
-			result.rejectValue("email", "error.doesntExist", "We could not find this email in our database");
+			result.rejectValue("email", "error.activation.doesntExist");
 			return "user/reset-password";
 		} else {
 			String resetToken = usersService.createResetPasswordToken(u, true);
@@ -107,7 +106,7 @@ public class UsersController {
 	public String resetPasswordChange(Users users, BindingResult result, Model model) {
 		Users u = usersRepository.findOneByToken(users.getToken());
 		if (users.getToken().equals("1") || u == null) {
-			result.rejectValue("activation", "error.doesntExist", "We could not find this reset password request.");
+			result.rejectValue("activation", "error.activation.doesntExist");
 		} else {
 			model.addAttribute("username", u.getUsername());
 		}
@@ -121,7 +120,7 @@ public class UsersController {
 			usersService.autoLogin(users.getUsername());
 			return new ModelAndView("redirect:/");
 		} else {
-			return new ModelAndView("user/reset-password-change", "error", "Password could not be changed");
+			return new ModelAndView("user/reset-password-change", "error", "{error.password.couldntBeChanged}");
 		}
 	}
 
@@ -137,7 +136,7 @@ public class UsersController {
 			mailService.sendNewActivationRequest(u.getEmail(), u.getToken());
 			return new ModelAndView("/user/activation-sent");
 		} else {
-			result.rejectValue("email", "error.doesntExist", "We could not find this email in our database");
+			result.rejectValue("email", "error.email.doesntExist");
 			return new ModelAndView("/user/activation-send");
 		}
 	}

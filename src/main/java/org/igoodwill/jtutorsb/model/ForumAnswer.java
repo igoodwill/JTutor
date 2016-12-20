@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -27,6 +28,7 @@ public class ForumAnswer {
 	@NotNull
 	@Size(min = 16, max = 8000)
 	@Column(name = "value", nullable = false)
+	@Pattern(regexp = "^((?!</?(?!(?:b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|i|kbd|li|ol|p|pre|s|sup|sub|string|strike|ul|br|hr)\\s*>)[a-z](?:[^>\"']|\"[^\"]*\"|'[^']*')*>).)*$")
 	private String value;
 
 	@Column(name = "creator_id")
