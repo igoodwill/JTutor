@@ -15,14 +15,18 @@ public class AppController {
 	@GetMapping({ "/", "/home" })
 	public String homePage(final Model model) {
 		
-		ServerSocket server = new ServerSocket(8953);
-        	Socket socket = server.accept();
+		try {
+            		ServerSocket server = new ServerSocket(8953);
+            		Socket socket = server.accept();
 
-        	DataInputStream input = new DataInputStream(socket.getInputStream());
-        	System.out.println(input.readUTF());
+            		DataInputStream input = new DataInputStream(socket.getInputStream());
+            		System.out.println(input.readUTF());
 
-        	socket.close();
-        	server.close();
+			socket.close();
+			server.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+        	}
 		
 		return "index";
 	}
