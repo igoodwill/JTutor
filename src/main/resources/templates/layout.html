@@ -26,16 +26,6 @@
 					<li><a th:href="@{/tutorial/lectures}"
 						href="tutorial/lectures" th:text="#{lectures}"></a></li>
 					<li><a th:href="@{/forum}" href="forum" th:text="#{forum}"></a></li>
-					<li th:if="${query} == null"><div id="custom-search-input">
-							<form th:action="@{/search}" class="input-group" method="post">
-								<input type="text" class="form-control" name="query"
-									th:placeholder="#{search}" /> <span class="input-group-btn">
-									<button class="btn btn-info" type="submit">
-										<i class="glyphicon glyphicon-search"></i>
-									</button>
-								</span>
-							</form>
-						</div></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
